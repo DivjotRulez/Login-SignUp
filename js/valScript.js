@@ -1,3 +1,8 @@
+//////////////////////////////////////////////////
+//                                              //
+//              ONLOAD INITIALISE               //
+//                                              //
+//////////////////////////////////////////////////
 function init()
 {
     checkEmailInputs();
@@ -6,173 +11,198 @@ function init()
 
     checkNameInput();
 
-    GEBID("btnSignUp").addEventListener("click", btnSignUp);
-
-   
-
-    
-}
-
-function checkNameInput()
-{
-  GEBID("inputName").addEventListener('keyup', (event) =>
-  {
-    if(event.target.value.length > 0)
+    GEBID("btnSignUp").addEventListener("click",() => 
     {
-      
-      FP(event.target,true)
-    }
-
-  });
-  
-
-}
-
-function checkEmailInputs()
-{
-    var input = GEBID("inputEmail");
-    var inputConfirmation = GEBID("inputConfirmEmail");
-
-    eLostFocus = false;
-
-    //INPUT KEYUP LISTENER
-    input.addEventListener('keyup', (event) =>
-    {
-        //VALIDATE EMAIL FORMAT
-        if (emailIsValid(event.target.value))
+        if(fullValidation())
         {
-            // FP PASS input
-            FP(input, true);
-
-            //ENABLE CONFIRMATION EMAIL INPUT
-            inputConfirmation.disabled = false;
-
-            //ARE INPUTS IDENTICAL
-            if (inputConfirmation.value.toLowerCase() == event.target.value.toLowerCase())
-            {
-                // FP PASS inputConf
-                FP(inputConfirmation, true);
-            }
 
         }
         else
         {
 
-            GEBID(input.id + "TC").innerHTML = "";
-            GEBID(inputConfirmation.id + "TC").innerHTML = "";
-            //Disable conf box
-            inputConfirmation.disabled = true;
+        }
+    });
+}
 
-            //if focus was lost check on keyup
+
+//////////////////////////////////////////////////
+//                                              //
+//        NAME INPUT VALIDATION LISTENERS       //
+//                                              //
+//////////////////////////////////////////////////
+function checkNameInput()
+{
+
+    GEBID("inputName").addEventListener('keyup', (event) =>
+    {
+        if (event.target.value.length > 0) //MINIMUM NAME LENGTH
+        {
+            FP(event.target, true) //CSS STYLE TO VALID 
+        }
+    });
+}
+
+
+//////////////////////////////////////////////////
+//                                              //
+//      EMAIL INPUT VALIDATION LISTENERS        //
+//                                              //
+//////////////////////////////////////////////////
+function checkEmailInputs()
+{
+    //////////////////GET INPUTS///////////////////////
+    var input =             GEBID("inputEmail");
+    var inputConfirmation = GEBID("inputConfirmEmail");
+
+
+    ////////REMEMBER IF FOCUS WAS LOST ON INPUTS///////
+    eLostFocus =  false;
+    ecLostFocus = false;
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
+    ///////////////////////////////////////////////////
+    input.addEventListener('keyup', (event) =>
+    {
+        ///////////////VALIDATE EMAIL FORMAT//////////////
+        if (emailIsValid(event.target.value))
+        {
+            FP(input, true); //CSS STYLE TO VALID
+           
+            inputConfirmation.disabled = false; //ENABLE CONFIRMATION EMAIL INPUT
+
+            ///////////////ARE INPUTS IDENTICAL///////////////
+            if (inputConfirmation.value.toLowerCase() == event.target.value.toLowerCase())
+            {
+                FP(inputConfirmation, true); //CSS STYLE TO VALID
+            }
+        }
+        else
+        {
+            //////////////////REMOVE TICKS////////////////////
+            GEBID(input            .id + "TC").innerHTML = "";
+            GEBID(inputConfirmation.id + "TC").innerHTML = "";
+            
+            inputConfirmation.disabled = true; //DISABLE CONFIRMATION EMAIL INPUT
+
+            //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (eLostFocus)
             {
-                // FP FAIL input
-                FP(input, false);
+                FP(input, false);//CSS STYLE TO INVALID
             }
         }
     });
 
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT CHANGE LISTENER INPUT 1 ------- //
+    ///////////////////////////////////////////////////
     input.addEventListener('change', (event) =>
     {
-        //email lost focus
-        eLostFocus = true;
+        eLostFocus = true; //FOCUS LOST
 
         //VALIDATE EMAIL FORMAT
         if (!emailIsValid(event.target.value))
         {
-            FP(input, false);
+            FP(input, false); //CSS STYLE TO INVALID
         }
     });
 
 
-
-
-
-    ecLostFocus = false;
-
-    //INPUT CONFIRMATION KEYUP LISTENER
+    ///////////////////////////////////////////////////
+    // -------- INPUT KEYUP LISTENER INPUT 2 ------- //
+    ///////////////////////////////////////////////////
     inputConfirmation.addEventListener('keyup', (event) =>
     {
-        //ARE INPUTS IDENTICAL
+        ///////////////ARE INPUTS IDENTICAL///////////////
         if (input.value.toLowerCase() == event.target.value.toLowerCase())
         {
-            // FP PASS inputConf
-            FP(inputConfirmation, true);
+            FP(inputConfirmation, true);//CSS STYLE TO VALID
         }
         else
         {
-          GEBID(inputConfirmation.id + "TC").innerHTML = "";
-            //if emailConf lost focus check on keyup
+            //////////////////REMOVE TICK/////////////////////
+            GEBID(inputConfirmation.id + "TC").innerHTML = "";
+
+            //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (ecLostFocus)
             {
-                // FP FAIL input
-                FP(inputConfirmation, false);
+                FP(inputConfirmation, false); //CSS STYLE TO INVALID
             }
         }
     });
 
-    //INPUT CONFIRMATION CHANGE LISTENER
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT CHANGE LISTENER INPUT 2 ------- //
+    ///////////////////////////////////////////////////
     inputConfirmation.addEventListener('change', (event) =>
     {
-        //email conf focus lost
-        ecLostFocus = true;
+        ecLostFocus = true;  //FOCUS LOST
 
-        //do inputs match
+        ///////////////ARE INPUTS IDENTICAL///////////////
         if (input.value.toLowerCase() != event.target.value.toLowerCase())
         {
-            // FP FAIL input
-            FP(inputConfirmation, false);
+            FP(inputConfirmation, false); //CSS STYLE TO INVALID
         }
-
     });
 
 }
 
 
+//////////////////////////////////////////////////
+//                                              //
+//     PASSWORD INPUT VALIDATION LISTENERS      //
+//                                              //
+//////////////////////////////////////////////////
 function checkPassInputs()
 {
-    var input = GEBID("inputPass");
+    //////////////////GET INPUTS///////////////////////
+    var input =             GEBID("inputPass");
     var inputConfirmation = GEBID("inputConfirmPass");
 
+    ////////REMEMBER IF FOCUS WAS LOST ON INPUT////////
     var pLostFocus = false;
+    var pcLostFocus = false;
 
-    //INPUT KEYUP LISTENER
+    ///////////////////////////////////////////////////
+    // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
+    ///////////////////////////////////////////////////
     input.addEventListener('keyup', (event) =>
     {
-        //VALIDATE EMAIL FORMAT
+        /////////////VALIDATE PASSWORD FORMAT////////////
         if (passIsValid(event.target.value))
         {
-            // FP PASS input
-            FP(input, true);
+            FP(input, true); //CSS STYLE TO VALID
 
-            //ENABLE CONFIRMATION EMAIL INPUT
-            inputConfirmation.disabled = false;
+            inputConfirmation.disabled = false; //ENABLE CONFIRMATION EMAIL INPUT
 
-            //ARE INPUTS IDENTICAL
+            ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value == event.target.value)
             {
-                // FP PASS inputConf
-                FP(inputConfirmation, true);
+                FP(inputConfirmation, true); //CSS STYLE TO VALID
             }
-
         }
         else
         {
-
-            GEBID(input.id + "TC").innerHTML = "";
+            //////////////////REMOVE TICKS////////////////////
+            GEBID(input            .id + "TC").innerHTML = "";
             GEBID(inputConfirmation.id + "TC").innerHTML = "";
-            //Disable conf box
-            inputConfirmation.disabled = true;
 
-            //if focus was lost check on keyup
+            inputConfirmation.disabled = true; //DISABLE CONFIRMATION EMAIL INPUT
+
+            //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (pLostFocus)
             {
-                // FP FAIL input
-                FP(input, false);
+                FP(input, false); //CSS STYLE TO INVALID
             }
         }
     });
 
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT CHANGE LISTENER INPUT 1 ------- //
+    ///////////////////////////////////////////////////
     input.addEventListener('change', (event) =>
     {
         //email lost focus
@@ -186,12 +216,9 @@ function checkPassInputs()
     });
 
 
-
-
-
-    var pcLostFocus = false;
-
-    //INPUT CONFIRMATION KEYUP LISTENER
+    ///////////////////////////////////////////////////
+    // -------- INPUT KEYUP LISTENER INPUT 2 ------- //
+    ///////////////////////////////////////////////////
     inputConfirmation.addEventListener('keyup', (event) =>
     {
         //ARE INPUTS IDENTICAL
@@ -202,27 +229,30 @@ function checkPassInputs()
         }
         else
         {
-          GEBID(inputConfirmation.id + "TC").innerHTML = "";
-            //if emailConf lost focus check on keyup
+            //////////////////REMOVE TICKS////////////////////
+            GEBID(inputConfirmation.id + "TC").innerHTML = "";
+            
+            //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (pcLostFocus)
             {
-                // FP FAIL input
-                FP(inputConfirmation, false);
+                
+                FP(inputConfirmation, false); //CSS STYLE TO INVALID
             }
         }
     });
 
-    //INPUT CONFIRMATION CHANGE LISTENER
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT CHANGE LISTENER INPUT 2 ------- //
+    ///////////////////////////////////////////////////
     inputConfirmation.addEventListener('change', (event) =>
     {
-        //email conf focus lost
-        pcLostFocus = true;
+        pcLostFocus = true; //FOCUS LOST
 
-        //do inputs match
+        ///////////////ARE INPUTS IDENTICAL///////////////
         if (input.value != event.target.value)
         {
-            // FP FAIL input
-            FP(inputConfirmation, false);
+            FP(inputConfirmation, false); //CSS STYLE TO INVALID
         }
 
     });
@@ -230,108 +260,126 @@ function checkPassInputs()
 }
 
 
-function btnSignUp()
+//////////////////////////////////////////////////
+//                                              //
+//            FULL INPUT VALIDATION             //
+//                                              //
+//////////////////////////////////////////////////
+function fullValidation()
 {
-
-  
-    
     var isAllValid = true;
 
+    //////////////////GET INPUTS///////////////////////
     inputs = document.getElementsByClassName("input");
 
-    for(var i = 0; i < inputs.length; i++)
+
+    ///////////////////////////////////////////////////
+    // ---------------- LOOP INPUTS ---------------- //
+    ///////////////////////////////////////////////////
+    for (var i = 0; i < inputs.length; i++)
     {
-     // console.log(inputs[i].id +" : "+inputs[i].value +" : "+inputs[i].value.length);
-      
-      if(inputs[i].value.length <= 0)
-      {
-        FP(inputs[i], false);
-      }
-      if(inputs[i].type == "email")
-      {
-        if(!emailIsValid(inputs[i].value))
+        ////////////FAIL IF INPUTS EMPTY//////////////
+        if (inputs[i].value.length <= 0)
         {
-          isAllValid = false;
+            FP(inputs[i], false);
         }
-      }
-      if(inputs[i].type == "password")
-      {
-        if(!passIsValid(inputs[i].value))
+         /////////////VALIDATE EMAIL//////////////////
+        if (inputs[i].type == "email")
         {
-          isAllValid = false;
+            if (!emailIsValid(inputs[i].value))
+            {
+                isAllValid = false;
+            }
         }
-      }
-    }
-   
-    if(GEBID("inputEmail").value.toLowerCase() != GEBID("inputConfirmEmail").value.toLowerCase()  ||  
-       GEBID("inputPass").value !== GEBID("inputConfirmPass").value)
-    {
-      isAllValid = false;
+        /////////////VALIDATE PASSWORD////////////////
+        if (inputs[i].type == "password")
+        {
+            if (!passIsValid(inputs[i].value))
+            {
+                isAllValid = false;
+            }
+        }
     }
 
-    if(isAllValid)
+    ////////CHECK INPUT MATCHES CONFIRMATION/////////
+    if (GEBID("inputEmail").value.toLowerCase() != GEBID("inputConfirmEmail").value.toLowerCase() ||
+        GEBID("inputPass").value !== GEBID("inputConfirmPass").value)
     {
-      console.log("VALID!!!!!")
+        isAllValid = false;
     }
+
+    //////////////ALL IS VALID//////////////////
+    if (isAllValid) { return true }
 }
 
 
-
-//Validate Password
+//////////////////////////////////////////////////
+//                                              //
+//        PASSWORD VALIDATION CONDITIONS        //
+//                                              //
+//////////////////////////////////////////////////
 function passIsValid(password)
 {
-console.log(password)
+    var pass = password.split(""); //PASSWORD CHARS TO ARRAY
 
+    var hasLetters = false;
+    var hasCapLetters = false;
+    var hasNumbers = false;
 
-
-var pass = password.split("");
-
- var hasLetters    = false;
- var hasCapLetters = false;
- var hasNumbers    = false;
-
-  if(pass.length >= 8)
-  {
-    for (i=0; i<pass.length;i++)
+    //////////PASSWORD VALIDATION CONDITIONS//////////
+    if (pass.length >= 8)
     {
-      if (pass[i].match(/[A-Z]/g)) 
-      {
-        hasCapLetters = true;
-      }
-      if (pass[i].match(/[a-z]/g)) 
-      {
-        hasLetters = true
-      }
-      if (pass[i].match(/[0-9]/g)) 
-      {
-        hasNumbers = true;
-      }
+        
+        ////////////LOOP CHARS AND LOOK FOR...////////////
+        for (i = 0; i < pass.length; i++)
+        {
+            if (pass[i].match(/[A-Z]/g)) //CAPITAL LETTERS
+            {
+                hasCapLetters = true;
+            }
+            if (pass[i].match(/[a-z]/g)) //REGULAR LETTERS
+            {
+                hasLetters = true
+            }
+            if (pass[i].match(/[0-9]/g)) //NUMBERS
+            {
+                hasNumbers = true;
+            }
+        }
+        
+        ///////////MUST INCLUDE THESE TYPES//////////////
+        if (hasLetters && hasCapLetters && hasNumbers) { return true }
     }
-    if(hasLetters && hasCapLetters && hasNumbers)
+    else
     {
-      return true
+        //TOO SHORT
     }
-  }
-  else
-  {
-    //TOO SHORT
-  }    
 }
-//Validate Email Format
+
+
+//////////////////////////////////////////////////
+//                                              //
+//          EMAIL VALIDATION CONDITIONS         //
+//                                              //
+//////////////////////////////////////////////////
 function emailIsValid(email)
 {
     console.log(email)
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
-//Get ElementByID shortcut
-function GEBID(ElID)
-{
-    return document.getElementById(ElID);
-}
-//Perform dependant on pass/fail (true/false) of input validation
+
+
+//////////////////////////////////////////////////
+//                                              //
+//       CHANGE CSS BASED ON VALIDATION         //
+//                                              //
+//////////////////////////////////////////////////
 function FP(input, FP)
 {
 
+    ///////////////////////////////////////////////////
+    // ----- EDIT CSS DEPENDANT ON VALIDATION ------ //
+    ///////////////////////////////////////////////////
     if (FP)
     {
         GEBID(input.id + "TC").innerHTML = "✔";
@@ -342,7 +390,17 @@ function FP(input, FP)
         GEBID(input.id + "TC").innerHTML = "✖";
         GEBID(input.id + "TC").style.color = "red";
     }
+}
 
+
+//////////////////////////////////////////////////
+//                                              //
+//             GET EL BY ID SHORTCUT            //
+//                                              //
+//////////////////////////////////////////////////
+function GEBID(ElID)
+{
+    return document.getElementById(ElID);
 }
 
 
@@ -355,79 +413,8 @@ function FP(input, FP)
 
 
 
-
-
-
-
-
-
-//   document.getElementById("inputEmailTC").style.Color = "red";
-//     //Get Inputs
-//     var input = GEBID("inputEmail");
-//     var inputConfirmation = GEBID("inputConfirmEmail");
-
-//     //INPUT ONE KEYUP LISTENER
-//     input.addEventListener('keyup', (event) =>
-//     {
-
-//         //VALIDATE EMAIL FORMAT
-//         if (emailIsValid(event.target.value))
-//         {
-          
-//             console.log("VALID EMAIL");
-
-//             //ENABLE CONFIRMATION EMAIL INPUT
-//             inputConfirmation.disabled = false;
-
-//             //ARE INPUTS IDENTICAL
-//             if (inputConfirmation.value.toLowerCase() == event.target.value.toLowerCase())
-//             {
-//                 console.log("EMAIL MATCH");
-
-//                 // GEBID(event.target.id+"TC").innerHTML = "✔";
-//                 // GEBID(event.target.id+"TC").style.color = "Green";
-//                 FP(input,true);
-//             }
-//         }
-//         //INCORRECT EMAIL FORMAT
-//         else
-//         {
-//             console.log("INVALID EMAIL");
-//             //DISABLE CONFIRMATION EMAIL INPUT
-//             inputConfirmation.disabled = true;
-//         }
-//     });
-
-
-    
-
-//     //INPUT CONFIRMATION CHANGE LISTENER
-//     inputConfirmation.addEventListener('change', (event) =>
-//     {
-//         //ARE INPUTS IDENTICAL
-//         if (input.value.toLowerCase() == event.target.value.toLowerCase())
-//         {
-//             console.log("EMAIL MATCH");
-//         }
-
-//         else //INPUTS NOT IDENTICAL
-//         {
-//             console.log("no match");
-
-//             //INPUT CONFIRMATION KEYUP LISTENER
-//             inputConfirmation.addEventListener('keyup', (event) =>
-//             {
-
-
-//                 //ARE INPUTS IDENTICAL
-//                 if (input.value.toLowerCase() == event.target.value.toLowerCase())
-//                 {
-//                     console.log("EMAIL MATCH");
-//                 }
-//                 else
-//                 {
-//                     console.log("F");
-//                 }
-//             });
-//         }
-//     });
+//////////////////////////////////////////////////
+//                                              //
+//                         //
+//                                              //
+//////////////////////////////////////////////////
