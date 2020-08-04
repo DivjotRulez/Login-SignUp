@@ -15,6 +15,23 @@ function init()
     {
         if(fullValidation())
         {
+            var data = {}; //DATA TO POST
+            
+            //////////////////GET INPUTS///////////////////////
+            inputs = document.getElementsByClassName("input");
+
+
+            ///////////////////////////////////////////////////
+            // ---------------- LOOP INPUTS ---------------- //
+            ///////////////////////////////////////////////////
+            for (var i = 0; i < inputs.length; i++)
+            {
+               data[inputs[i].id] = inputs[i].value;                
+            }
+           
+            /////////////////POST INPUTS//////////////////////
+            console.log(JSON.stringify(data));
+            postData(data);
 
         }
         else
@@ -425,6 +442,26 @@ function FP(input, FP)
 
 //////////////////////////////////////////////////
 //                                              //
+//         POST FIELD DATA TO PHP SCRIPT        //
+//                                              //
+//////////////////////////////////////////////////
+function postData(data)
+{
+    $.ajax(
+    {
+        data,
+        url: '.php',
+        method: 'POST',
+        success: function(msg)
+        {
+            //alert(msg);
+        }
+    });
+}
+
+
+//////////////////////////////////////////////////
+//                                              //
 //             GET EL BY ID SHORTCUT            //
 //                                              //
 //////////////////////////////////////////////////
@@ -432,19 +469,3 @@ function GEBID(ElID)
 {
     return document.getElementById(ElID);
 }
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////
-//                                              //
-//                         //
-//                                              //
-//////////////////////////////////////////////////
