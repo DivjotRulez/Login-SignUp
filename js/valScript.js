@@ -32,12 +32,42 @@ function init()
 //////////////////////////////////////////////////
 function checkNameInput()
 {
+    var nLostFocus = false;
 
+    ///////////////////////////////////////////////////
+    // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
+    ///////////////////////////////////////////////////
     GEBID("inputName").addEventListener('keyup', (event) =>
     {
         if (event.target.value.length > 0) //MINIMUM NAME LENGTH
         {
             FP(event.target, true) //CSS STYLE TO VALID 
+        }
+        else
+        {
+            //////////////////REMOVE TICKS////////////////////
+            GEBID(event.target.id + "TC").innerHTML = "";
+           
+            //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
+            if (nLostFocus)
+            {
+                FP(event.target, false);//CSS STYLE TO INVALID
+            }
+        }
+    });
+
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT CHANGE LISTENER INPUT 1 ------- //
+    ///////////////////////////////////////////////////
+    GEBID("inputName").addEventListener('focusout', (event) =>
+    {
+        nLostFocus = true; //FOCUS LOST
+
+        //VALIDATE NAME FORMAT
+        if (event.target.value.length == 0) //MINIMUM NAME LENGTH
+        {
+            FP(event.target, false); //CSS STYLE TO INVALID
         }
     });
 }
