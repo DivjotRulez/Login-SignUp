@@ -57,6 +57,16 @@
                                 <td><input id = "inputConfirmPass" type="password" name="ConfirmPass" maxlength="24" class = "input" disabled></td>
                                 <td><span  id = "inputConfirmPassTC"></span></td>                         
                             </tr>
+
+                        <?php
+                        if(isset($_SESSION["error"])){
+                        $error = $_SESSION["error"];
+                        echo "
+                            <tr>
+                                <td colspan="3">$error</td> 
+                            </tr>
+                        ";}
+                        ?>  
                             <tr>
                                 <td><input id = "btnSignUp" name = "submit" type="button" value="Sign Up"></td>
                                 <td></td>                          
@@ -68,3 +78,5 @@
         </div><!--Body Wrapper-->
     </body><!--body-->
 </html><!--Index Page-->
+
+<?php unset($_SESSION["error"]); ?>
