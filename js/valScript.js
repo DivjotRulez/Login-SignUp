@@ -23,8 +23,8 @@ function init()
 
     GEBID("btnSignUp").addEventListener("click",() => 
     {
-        if(fullValidation())
-        {
+        // if(fullValidation())
+        // {
             var data = {}; //DATA TO POST
             
             //////////////////GET INPUTS///////////////////////
@@ -40,14 +40,9 @@ function init()
             }
            
             /////////////////POST INPUTS//////////////////////
-            console.log(JSON.stringify(data));
-            postData(data);
-
-        }
-        else
-        {
-
-        }
+            postData(data).catch(errorHandler);
+       // }
+       
     });
 }
 
@@ -457,16 +452,78 @@ function FP(input, FP)
 //////////////////////////////////////////////////
 function postData(data)
 {
-    $.ajax(
+    var p = new Promise((resolve, reject) =>
     {
-        data,
-        url: '.php',
-        method: 'POST',
-        success: function(msg)
-        {
-            //alert(msg);
+        var http = new XMLHttpRequest();
+        var url = 'addNewUser.php';
+        http.open('POST', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function()
+        { //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200)
+            {
+                //alert(http.responseText);
+                resolve(http);
+            }
+            if (http.readyState == 4 && http.status != 200)
+            {
+                //alert(JSON.parse(http.responseText).code+" : progress?!?!" + http.status);
+                reject(http);
+            }
         }
+        http.send(objToQueryStr(data));
+
     });
+    return p;
+}
+
+
+//////////////////////////////////////////////////
+//                                              //
+//               XHR ERROR HANDLER              //
+//                                              //
+//////////////////////////////////////////////////
+function errorHandler(error)
+{
+    var errorMsg = "";
+    
+    var rTxt     = JSON.parse(error.responseText)[0];
+    var rMsg     = rTxt.msg;
+    var rCode    = rTxt.code;
+    var httpCode = error.status;
+
+    switch (httpCode) {
+        case 400:
+          alert("400");
+          break;
+
+        case 404:
+          alert("404");
+          break;
+      }
+    
+}
+
+
+//////////////////////////////////////////////////
+//                                              //
+//        CONVERT OBJECT TO QUERY STRING        //
+//                                              //
+//////////////////////////////////////////////////
+function objToQueryStr(obj)
+{
+    var str = [];
+    for (var p in obj)
+    {
+        if (obj.hasOwnProperty(p))
+        {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    }
+    return str.join("&");
 }
 
 
