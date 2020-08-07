@@ -8,48 +8,146 @@
 // ------------------------------------------- //
 /////////////////////////////////////////////////
 
-$error = "FIX THESE ISSUES: ";
+session_start();
+
+
+
+
+$errors = array();
+
+//$errors = logError($errors, 400,"TESTY", 1);
+
+//echo $errors[1]["msg"];
+//echo json_encode($errors);
+
+//relayError($errors);
+
 
 /////////////////////////////////////////////////
 // ----------------- INPUTS ------------------ //
 /////////////////////////////////////////////////
 
-if (isset($_POST["inputName"           ])) { $name   = $_POST["inputName"           ]; } else {$error .= " \n no name";}
-if (isset($_POST["inputEmail"          ])) { $email  = $_POST["inputEmail"          ]; }
-if (isset($_POST["inputConfirmEmail"   ])) { $emailC = $_POST["inputConfirmEmail"   ]; }
-if (isset($_POST["inputPassword"       ])) { $pass   = $_POST["inputPassword"       ]; }
-if (isset($_POST["inputConfirmPassword"])) { $passC  = $_POST["inputConfirmPassword"]; }
+if (isset($_POST["inputName"        ])) { $name   = $_POST["inputName"        ]; } else {$errors = logError($errors, 404, "Name Field Not Recieved", "0");}
+if (isset($_POST["inputEmail"       ])) { $email  = $_POST["inputEmail"       ]; } else {$errors = logError($errors, 404, "Email Field Not Recieved", "0.1");}
+if (isset($_POST["inputConfirmEmail"])) { $emailC = $_POST["inputConfirmEmail"]; } else {$errors = logError($errors, 404, "Email Confirmation Not Recieved", "0.2");}
+if (isset($_POST["inputPass"        ])) { $pass   = $_POST["inputPass"        ]; } else {$errors = logError($errors, 404, "Password Not Recieved", "0.3");}
+if (isset($_POST["inputConfirmPass" ])) { $passC  = $_POST["inputConfirmPass" ]; } else {$errors = logError($errors, 404, "Password Confirmation Not Recieved", "0.4");}
 
-$_SESSION["error"] = $error;
-header("location: signUp.php");
+
+///////////RETURN LEVEL 1 ERROR CODES////////////
+if(count($errors) > 0)
+{
+   relayError($errors);
+}
 
 /////////////////////////////////////////////////
 // ---------------- VALIDATE ----------------- //
 /////////////////////////////////////////////////
 
-$emailIsValid;
+print_r($_POST);
 
-// if($email == $emailC)
-// {
-//     if($email //email verryficasoun)
-//     {
-
-//     }
-// }
-// else
-// {
-//     //no match
-// }
+print_r(strlen(trim($name  )));
+//////////////////DO POSTS CONTAIN DATA///////////////////
+if (strlen(trim($name  )) < 1){$errors = logError($errors, 400, "Name Field Blank", "1.0");}
+if (strlen(trim($email )) < 1){$errors = logError($errors, 400, "Email Field Blank", "1.1");}
+if (strlen(trim($emailC)) < 1){$errors = logError($errors, 400, "Email Confirmation Field Blank", "1.2");}
+if (strlen(trim($pass  )) < 1){$errors = logError($errors, 400, "Password Field Blank", "1.3");}
+if (strlen(trim($passC )) < 1){$errors = logError($errors, 400, "Password Confirmation Field Blank", "1.4");}
 
 
+//////////////////EMAILS MATCH///////////////////
+if($email == $emailC)
+{
+    /////////////EMAIL FORMAT INCORRECT//////////////
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+    {
+        $errors = logError($errors, 400,"Email Is An Incorrect Format", "2.1.1");
+    }
+}
+///////////////EMAILS DON'T MATCH////////////////
+else
+{
+    $errors = logError($errors, 400,"Emails Don't Match", "2.1");
+}
 
+/////////////////PASSWORDS MATCH//////////////////
+if($pass == $passC)
+{
+    /////////////CHECK PASSWORD LENGTH///////////////
+    if(strlen($pass) >= 8)
+    {
+        //////////////CHECK PASSWORD FROMAT//////////////
+        if(!preg_match("#[0-9]+#",$pass)) 
+        {
+            $errors = logError($errors, 400,"Password Must Include At least 1 Number", "2.2.2.0");
+        }
+        elseif(!preg_match("#[A-Z]+#",$pass)) 
+        {
+            $errors = logError($errors, 400,"Password Must Include At least 1 Capital Letter", "2.2.2.1");
+        }
+        elseif(!preg_match("#[a-z]+#",$pass)) 
+        {
+            $errors = logError($errors, 400,"Password Must Include At least 1 Standard Letter", "2.2.2.2");
+        }
+    }
+    //////////INSUFFICIENT PASSWORD LENGTH///////////
+    else
+    {
+        $errors = logError($errors, 400,"Password Length Must Be At Least 8", "2.2.1");
+    }
+}
+/////////////PASSWORDS DO NOT MATCH//////////////
+else
+{
+    $errors = logError($errors, 400,"Passwords Don't Match", "2.2");
+}
 
-
+///////////RETURN LEVEL 2 ERROR CODES////////////
+if(count($errors) > 0)
+{
+   relayError($errors);
+}
 
 
 /////////////////////////////////////////////////
-// ----------- INSERT INTO USERS ------------- //
+// --------- INSERT INTO USERS TABLE --------- //
 /////////////////////////////////////////////////
+
+// $conn= new PDO("mysql:host=localhost;dbname=;","","");
+
+// if ($mysqli -> connect_errno) 
+// {
+//     $errors = logError($errors, 500 ,"Could not Connect To Database", "3");
+//     relayError();
+// }
+
+$key = rand();
+
+// $insert = $conn->prepare
+// (
+//     " INSERT INTO USERS 
+//     (End, Available,Supervisor, key) VALUES 
+//     (:end, :av, :super, :key) "
+// );
+
+// $insert->bindParam(":name" , $name );
+// $insert->bindParam(":email" , $email );
+// $insert->bindParam(":password", $pass );
+// $insert->bindParam(":key", $key );
+// $insert->bindParam(":active", 0 );
+
+// $insert -> execute();
+
+
+// if($insert->rowCount() < 1)
+// {
+//     $errors = logError($errors, 500 ,"Database Insert Failed", "3.1");
+//     relayError();
+// }
+
+
+
+// echo mysqli_error($conn);
 
 
 
@@ -59,5 +157,35 @@ $emailIsValid;
 // --------- SEND CONFIRMATION EMAIL --------- //
 /////////////////////////////////////////////////
 
+
+// if($insert->rowCount() > 0)
+// {
+    require 'EMAIL.php';
+    $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/activateAccount.php';
+    $URL .= '?key='.$key;
+    sendEmailActivation($name, $email, $URL);
+
+    
+
+
+/////////////////////////////////////////////////
+// -------- ERROR MESSAGE CONSTRUCTOR -------- //
+/////////////////////////////////////////////////
+function logError($errors,$httpError, $msg, $code)
+{
+    array_push($errors,['httpError' => $httpError, 'msg' => $msg, 'code' => $code]);
+    return $errors;
+}
+
+
+/////////////////////////////////////////////////
+// ---- ECHO ERROR MESSAGE(S) / HTTP CODE ---- //
+/////////////////////////////////////////////////
+function relayError($errors) 
+{ 
+    header('HTTP/1.1 '.strval($errors[0]["httpError"]));
+    header('Content-Type: application/json; charset=UTF-8');
+    die(json_encode($errors));
+}
 
 ?>
