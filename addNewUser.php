@@ -8,20 +8,9 @@
 // ------------------------------------------- //
 /////////////////////////////////////////////////
 
-session_start();
-
-
-
+require 'sendEmail.php';
 
 $errors = array();
-
-//$errors = logError($errors, 400,"TESTY", 1);
-
-//echo $errors[1]["msg"];
-//echo json_encode($errors);
-
-//relayError($errors);
-
 
 /////////////////////////////////////////////////
 // ----------------- INPUTS ------------------ //
@@ -33,20 +22,18 @@ if (isset($_POST["inputConfirmEmail"])) { $emailC = $_POST["inputConfirmEmail"];
 if (isset($_POST["inputPass"        ])) { $pass   = $_POST["inputPass"        ]; } else {$errors = logError($errors, 404, "Password Not Recieved", "0.3");}
 if (isset($_POST["inputConfirmPass" ])) { $passC  = $_POST["inputConfirmPass" ]; } else {$errors = logError($errors, 404, "Password Confirmation Not Recieved", "0.4");}
 
-
 ///////////RETURN LEVEL 1 ERROR CODES////////////
 if(count($errors) > 0)
 {
    relayError($errors);
 }
 
+
 /////////////////////////////////////////////////
 // ---------------- VALIDATE ----------------- //
 /////////////////////////////////////////////////
 
-print_r($_POST);
 
-print_r(strlen(trim($name  )));
 //////////////////DO POSTS CONTAIN DATA///////////////////
 if (strlen(trim($name  )) < 1){$errors = logError($errors, 400, "Name Field Blank", "1.0");}
 if (strlen(trim($email )) < 1){$errors = logError($errors, 400, "Email Field Blank", "1.1");}
@@ -102,6 +89,18 @@ else
     $errors = logError($errors, 400,"Passwords Don't Match", "2.2");
 }
 
+///////////IS EMAIL ALREADY REGISTERED///////////
+
+$conn= new PDO("mysql:host=localhost;dbname=a1;","alex","alex");
+
+$emailExists = $conn->query("SELECT count(1) FROM users where email = '$email'")->fetchColumn();
+
+if($emailExists > 0)
+{
+    $errors = logError($errors, 400,"Email already exists", "2.3");
+}
+
+
 ///////////RETURN LEVEL 2 ERROR CODES////////////
 if(count($errors) > 0)
 {
@@ -112,44 +111,31 @@ if(count($errors) > 0)
 /////////////////////////////////////////////////
 // --------- INSERT INTO USERS TABLE --------- //
 /////////////////////////////////////////////////
-
-// $conn= new PDO("mysql:host=localhost;dbname=;","","");
-
-// if ($mysqli -> connect_errno) 
-// {
-//     $errors = logError($errors, 500 ,"Could not Connect To Database", "3");
-//     relayError();
-// }
+ 
 
 $key = rand();
+$active = 0;
 
-// $insert = $conn->prepare
-// (
-//     " INSERT INTO USERS 
-//     (End, Available,Supervisor, key) VALUES 
-//     (:end, :av, :super, :key) "
-// );
+$insert = $conn->prepare
+(
+    "INSERT INTO users 
+    (name,  email,  password, activationKey, isActive) VALUES 
+   (:name, :email, :password, :key,         :active)"
+);
 
-// $insert->bindParam(":name" , $name );
-// $insert->bindParam(":email" , $email );
-// $insert->bindParam(":password", $pass );
-// $insert->bindParam(":key", $key );
-// $insert->bindParam(":active", 0 );
+$insert->bindParam(":name"    , $name  );
+$insert->bindParam(":email"   , $email );
+$insert->bindParam(":password", $pass  );
+$insert->bindParam(":key"     , $key   );
+$insert->bindParam(":active"  , $active);
 
-// $insert -> execute();
+$insert -> execute();
 
-
-// if($insert->rowCount() < 1)
-// {
-//     $errors = logError($errors, 500 ,"Database Insert Failed", "3.1");
-//     relayError();
-// }
-
-
-
-// echo mysqli_error($conn);
-
-
+if($insert->rowCount() < 1)
+{
+    $errors = logError($errors, 500 ,"Database Insert Failed", "3.1");
+    relayError($errors);
+}
 
 
 
@@ -157,22 +143,21 @@ $key = rand();
 // --------- SEND CONFIRMATION EMAIL --------- //
 /////////////////////////////////////////////////
 
-
-// if($insert->rowCount() > 0)
-// {
-    require 'EMAIL.php';
+/////SEND EMAIL IF INSERT WAS SUCCESSFUL/////////
+if($insert->rowCount() > 0)
+{
     $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/activateAccount.php';
     $URL .= '?key='.$key;
-    sendEmailActivation($name, $email, $URL);
-
+    echo ". sendEmail . ";//sendEmailActivation($name, $email, $URL);
+}
     
-
 
 /////////////////////////////////////////////////
 // -------- ERROR MESSAGE CONSTRUCTOR -------- //
 /////////////////////////////////////////////////
 function logError($errors,$httpError, $msg, $code)
 {
+    //////////ADD ERROR TO LOG AND RETURN///////////
     array_push($errors,['httpError' => $httpError, 'msg' => $msg, 'code' => $code]);
     return $errors;
 }
@@ -183,6 +168,7 @@ function logError($errors,$httpError, $msg, $code)
 /////////////////////////////////////////////////
 function relayError($errors) 
 { 
+    ///SEND ERROR ARRAY / HTTP ERROR (FIRST IN ARRAY). THEN EXIT//
     header('HTTP/1.1 '.strval($errors[0]["httpError"]));
     header('Content-Type: application/json; charset=UTF-8');
     die(json_encode($errors));
