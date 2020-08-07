@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en"><!--Index Page--> 
 
@@ -58,15 +60,10 @@
                                 <td><span  id = "inputConfirmPassTC"></span></td>                         
                             </tr>
 
-                        <?php
-                        if(isset($_SESSION["error"])){
-                        $error = $_SESSION["error"];
-                        echo "
                             <tr>
-                                <td colspan="3">$error</td> 
+                                <td colspan='3' id = "error"></td> 
                             </tr>
-                        ";}
-                        ?>  
+                       
                             <tr>
                                 <td><input id = "btnSignUp" name = "submit" type="button" value="Sign Up"></td>
                                 <td></td>                          
