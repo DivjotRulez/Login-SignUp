@@ -9,8 +9,7 @@
 /////////////////////////////////////////////////
 
 require 'sendEmail.php';
-
-$errors = array();
+require 'common.php';
 
 /////////////////////////////////////////////////
 // ----------------- INPUTS ------------------ //
@@ -91,7 +90,8 @@ else
 
 ///////////IS EMAIL ALREADY REGISTERED///////////
 
-$conn= new PDO("mysql:host=localhost;dbname=a1;","alex","alex");
+//conn($host,$db,$user,$pass)
+conn("localhost","a1","alex","alex");
 
 $emailExists = $conn->query("SELECT count(1) FROM users where email = '$email'")->fetchColumn();
 
@@ -148,30 +148,15 @@ if($insert->rowCount() > 0)
 {
     $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/activateAccount.php';
     $URL .= '?key='.$key;
-    echo ". sendEmail . ";//sendEmailActivation($name, $email, $URL);
-}
+    //sendEmailActivation($name, $email, $URL);
     
 
-/////////////////////////////////////////////////
-// -------- ERROR MESSAGE CONSTRUCTOR -------- //
-/////////////////////////////////////////////////
-function logError($errors,$httpError, $msg, $code)
-{
-    //////////ADD ERROR TO LOG AND RETURN///////////
-    array_push($errors,['httpError' => $httpError, 'msg' => $msg, 'code' => $code]);
-    return $errors;
-}
 
 
-/////////////////////////////////////////////////
-// ---- ECHO ERROR MESSAGE(S) / HTTP CODE ---- //
-/////////////////////////////////////////////////
-function relayError($errors) 
-{ 
-    ///SEND ERROR ARRAY / HTTP ERROR (FIRST IN ARRAY). THEN EXIT//
-    header('HTTP/1.1 '.strval($errors[0]["httpError"]));
-    header('Content-Type: application/json; charset=UTF-8');
-    die(json_encode($errors));
+    ////////////TESTING/////////////////
+
+    echo $URL;
 }
+
 
 ?>

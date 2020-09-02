@@ -40,7 +40,7 @@ function init()
             }
            
             /////////////////POST INPUTS//////////////////////
-            postData(data).catch(errorHandler);
+            postData(data, 'addNewUser.php').catch(errorHandler);
        // }
        
     });
@@ -249,6 +249,8 @@ function checkPassInputs()
                 FP(input, false); //CSS STYLE TO INVALID
             }
         }
+
+        strengthTest(input);
     });
 
 
@@ -450,12 +452,11 @@ function FP(input, FP)
 //         POST FIELD DATA TO PHP SCRIPT        //
 //                                              //
 //////////////////////////////////////////////////
-function postData(data)
+function postData(data, url)
 {
     var p = new Promise((resolve, reject) =>
     {
         var http = new XMLHttpRequest();
-        var url = 'addNewUser.php';
         http.open('POST', url, true);
 
         //Send the proper header information along with the request
@@ -535,4 +536,78 @@ function objToQueryStr(obj)
 function GEBID(ElID)
 {
     return document.getElementById(ElID);
+}
+
+
+//////////////////////////////////////////////////
+//                                              //
+//                 STRENGTH TEST                //          NOT IN USE!
+//                                              //
+//////////////////////////////////////////////////
+function strengthTest(pass)
+{
+    var strPassword = pass;
+	var charPassword = strPassword.split("");
+	var minPasswordLength = 8;
+	var baseScore = 0, score = 0;
+	
+	var num = {};
+	num.Excess = 0;
+	num.Upper = 0;
+	num.Numbers = 0;
+	num.Symbols = 0;
+
+	var bonus = {};
+	bonus.Excess = 3;
+	bonus.Upper = 4;
+	bonus.Numbers = 5;
+	bonus.Symbols = 5;
+	bonus.Combo = 0; 
+	bonus.FlatLower = 0;
+	bonus.FlatNumber = 0;
+
+
+    if (charPassword.length >= minPasswordLength)
+	{
+		baseScore = 50;	
+	}
+	else
+	{
+		baseScore = 0;
+    }
+    
+	for (i=0; i<charPassword.length;i++)
+	{
+		if (charPassword[i].match(/[A-Z]/g)) {num.Upper++;}
+		if (charPassword[i].match(/[0-9]/g)) {num.Numbers++;}
+		if (charPassword[i].match(/(.*[!,@,#,$,%,^,&,*,?,_,~])/)) {num.Symbols++;} 
+	}
+	
+	num.Excess = charPassword.length - minPasswordLength;
+	
+	if (num.Upper && num.Numbers && num.Symbols)
+	{
+		bonus.Combo = 25; 
+	}
+
+	else if ((num.Upper && num.Numbers) || (num.Upper && num.Symbols) || (num.Numbers && num.Symbols))
+	{
+		bonus.Combo = 15; 
+	}
+	
+	if (strPassword.match(/^[\sa-z]+$/))
+	{ 
+		bonus.FlatLower = -15;
+	}
+	
+	if (strPassword.match(/^[\s0-9]+$/))
+	{ 
+		bonus.FlatNumber = -35;
+    }
+
+    score = baseScore + (num.Excess*bonus.Excess) + (num.Upper*bonus.Upper) + (num.Numbers*bonus.Numbers) + 
+(num.Symbols*bonus.Symbols) + bonus.Combo + bonus.FlatLower + bonus.FlatNumber;
+
+return score;
+
 }
