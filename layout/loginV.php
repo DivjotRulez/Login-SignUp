@@ -13,8 +13,7 @@
     
     <tr>
         <td>Password</td> 
-        <td><input id = "inputPass" type="" name="pass" maxlength="24" class = "input"></td>
-        <td><span  id = "inputPassTC"></span></td>                             
+                               
     </tr>
     <tr>
    
@@ -28,7 +27,7 @@
     </tr>
 
     <tr>
-        <td><input id = "btnSignUp" name = "submit" type="button" value="Sign Up"></td>
+        <td><input id = "btnLogin" name = "submit" type="button" value="Login"></td>
         <td></td>                          
     </tr>
 </table>
