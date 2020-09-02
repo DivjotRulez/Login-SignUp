@@ -33,6 +33,13 @@ function loginInit()
             }
            
             /////////////////POST INPUTS//////////////////////
-            postData(data, 'php/login.php').catch(errorHandler);
+            postData(data, 'php/login.php').then((p)=>
+            {
+               if(p.status == 200)
+               {
+                    window.location.replace("index.php");
+               }
+            }).catch(errorHandler);
     });
 }
+

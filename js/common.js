@@ -55,6 +55,10 @@ function errorHandler(error)
         case 404:
           alert("404");
           break;
+
+          case 401:
+          alert("404");
+          break;
       }
     
 }

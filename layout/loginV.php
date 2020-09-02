@@ -7,7 +7,7 @@
     </tr>
     <tr>
          
-        <td><input id = "inputEmail" type="email" name="email" maxlength="128" class = "input" required></td>
+        <td><input id = "inputEmail" type="email" name="email" maxlength="128" class = "input" required   value = "alex@aol.c"></td>
         <td><span  id = "inputEmailTC"></span></td>
     </tr>
     
@@ -17,7 +17,7 @@
     </tr>
     <tr>
    
-        <td><input id = "inputPass" type="" name="pass" maxlength="24" class = "input"></td>
+        <td><input id = "inputPass" type="password" name="pass" maxlength="24" class = "input"      value = "Arjg1234"></td>
         <td><span  id = "inputPassTC"></span></td>                             
     </tr>
     

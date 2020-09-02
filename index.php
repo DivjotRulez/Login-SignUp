@@ -1,2 +1,27 @@
+<?php 
+session_start(); 
+if(isset($_SESSION["username" ]))
+{
+echo $_SESSION["username" ];
+}
+
+?>
+
+<br>
+
 <a href = "signup.php">Sign Up</a>
-<a href = "login.php">Login</a>
+
+<br>
+
+<?php
+
+if(isset($_SESSION["username" ]))
+{
+    echo '<a href = "php/logout.php">Logout</a>';
+}
+else
+{
+    echo '<a href = "login.php">Login</a>';
+}
+
+?>

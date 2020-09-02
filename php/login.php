@@ -15,16 +15,16 @@ require 'common.php';
 /////////////////////////////////////////////////
 // --------------- GET INPUTS ---------------- //
 /////////////////////////////////////////////////
-$un = htmlentities($_POST["inputEmail"]);
-$pw = htmlentities($_POST["inputPass" ]);
+$email = htmlentities($_POST["inputEmail"]);
+$password = htmlentities($_POST["inputPass" ]);
 
 /////////////////////////////////////////////////
 // ------------ IS INPUT RECIEVED ------------ //
 /////////////////////////////////////////////////
-if(strlen($un) == 0 || strlen($pw) == 0)
+if(strlen($email) == 0 || strlen($password) == 0)
 {
-    if (strlen($un) == 0){$errors = logError($errors, 404, "Email Field Not Recieved"   , "0"  );}
-    if (strlen($pw) == 0){$errors = logError($errors, 404, "Password Field Not Recieved", "0.1");}
+    if (strlen($email) == 0){$errors = logError($errors, 404, "Email Field Not Recieved"   , "0"  );}
+    if (strlen($password) == 0){$errors = logError($errors, 404, "Password Field Not Recieved", "0.1");}
 
     relayError($errors); 
 }
@@ -34,9 +34,13 @@ if(strlen($un) == 0 || strlen($pw) == 0)
 /////////////////////////////////////////////////
 $conn = conn("localhost","a1","alex","alex");
 
-$loginQ = $conn -> prepare("SELECT * FROM USERS WHERE Username=:username AND password=:password");
-$loginQ -> bindParam(":username", $un);
-$loginQ -> bindParam(":password", $pw);
+$userTable = "users";
+$emailCol  = "email";
+$passCol   = "password";
+
+$loginQ = $conn -> prepare("SELECT * FROM $userTable WHERE $emailCol=:email AND $passCol=:password");
+$loginQ -> bindParam(":email", $email);
+$loginQ -> bindParam(":password", $password);
 $loginQ -> execute();
 
 $user = $loginQ -> fetch();
@@ -48,12 +52,10 @@ if(!$user) //If no results Returned
 }
 else //If match found
 {	
-	$_SESSION["userID" ] = $user["userID"];
+    $_SESSION["userID" ] = $user["userID"];
+    $_SESSION["username" ] = $user["email"];
 	//$_SESSION["isadmin"] = $user["Admin" ];
-	//header("Location: ");
+    
 }
 
 ?>
-
-
-   

@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>Password</td> 
-        <td><input id = "inputPass" type="" name="pass" maxlength="24" class = "input"></td>
+        <td><input id = "inputPass" type="password" name="pass" maxlength="24" class = "input"></td>
         <td><span  id = "inputPassTC"></span></td>                             
     </tr>
     <tr>
