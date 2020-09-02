@@ -9,7 +9,12 @@ echo $_SESSION["username" ];
 
 <br>
 
-<a href = "signup.php">Sign Up</a>
+<?php
+if(!isset($_SESSION["username" ]))
+{
+    echo '<a href = "signup.php">Sign Up</a>';
+}
+?>
 
 <br>
 
