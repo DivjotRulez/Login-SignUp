@@ -40,7 +40,7 @@ function init()
             }
            
             /////////////////POST INPUTS//////////////////////
-            postData(data, 'addNewUser.php').catch(errorHandler);
+            postData(data, 'php/addNewUser.php').catch(errorHandler);
        // }
        
     });

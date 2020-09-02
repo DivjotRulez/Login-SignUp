@@ -36,6 +36,7 @@ function relayError($errors)
 function conn($host,$db,$user,$pass)
 {
     $conn= new PDO("mysql:host=".$host.";dbname=".$db.";",$user, $pass);
+    return $conn;
 }
 
 ?>

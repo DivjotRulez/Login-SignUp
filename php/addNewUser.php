@@ -91,7 +91,7 @@ else
 ///////////IS EMAIL ALREADY REGISTERED///////////
 
 //conn($host,$db,$user,$pass)
-conn("localhost","a1","alex","alex");
+$conn = conn("localhost","a1","alex","alex");
 
 $emailExists = $conn->query("SELECT count(1) FROM users where email = '$email'")->fetchColumn();
 
@@ -146,7 +146,7 @@ if($insert->rowCount() < 1)
 /////SEND EMAIL IF INSERT WAS SUCCESSFUL/////////
 if($insert->rowCount() > 0)
 {
-    $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/activateAccount.php';
+    $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/php/activateAccount.php';
     $URL .= '?key='.$key;
     //sendEmailActivation($name, $email, $URL);
     

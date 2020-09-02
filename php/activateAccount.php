@@ -26,7 +26,7 @@ $key = $_GET["key"];
 // ----------- CONNECT TO DATABASE ----------- //
 /////////////////////////////////////////////////
 
-conn("localhost","a1","alex","alex");//conn($host,$db,$user,$pass)
+$conn = conn("localhost","a1","alex","alex");//conn($host,$db,$user,$pass)
 
 /////////////////////////////////////////////////
 // -------- SELECT USER ID FROM TABLE -------- //
@@ -42,6 +42,7 @@ $id = $cUser[$idCol];
 if(!$cUser)
 {
     $errors = logError($errors, 404 ,"Key not reconised", "1");
+    relayError($errors);
 }
 
 /////////////////////////////////////////////////
@@ -50,12 +51,5 @@ if(!$cUser)
 $update = $conn->query(" UPDATE $usersTable
                             SET $isActiveCol = 1
                           WHERE $idCol = $id ");
-
-
-/////////////////////////////////////////////////
-// -------------- RELAY ERRORS --------------- //
-/////////////////////////////////////////////////
-relayError($errors);
-
 
 ?>
