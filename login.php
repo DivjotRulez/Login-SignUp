@@ -18,7 +18,7 @@
     
     </head>
     
-    <body onload="signUpInit();">
+    <body onload="loginInit();">
  
         <div id = "wrapper"><!--Body Wrapper-->
         
@@ -35,7 +35,7 @@
                     <form method="post" action="">
                       
                     <!--Choose Layout--> 
-                   <?php require 'layout/signUpV.php'; ?>
+                   <?php require 'layout/loginV.php'; ?>
                     
                     </form>
                </div> 

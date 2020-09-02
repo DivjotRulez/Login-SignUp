@@ -13,7 +13,7 @@
 //              ONLOAD INITIALISE               //
 //                                              //
 //////////////////////////////////////////////////
-function init()
+function signUpInit()
 {
     checkEmailInputs();
 
