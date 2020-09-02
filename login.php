@@ -36,7 +36,7 @@
                     <form method="post" action="">
                       
                     <!--Choose Layout--> 
-                   <?php require 'layout/loginV.php'; ?>
+                   <?php require 'layout/loginV.html'; ?>
                     
                     </form>
                </div> 
