@@ -1,48 +1,51 @@
-<?php session_start(); ?>
 
-<!DOCTYPE html>
-<html lang="en"><!--Index Page--> 
+<html>
 
-    <head>
-
-        <meta charset="utf-8"> <!--Set Charset-->
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type='text/javascript' src='js/signUp.js'></script>
+<head>
+  <link rel="stylesheet" href="css/signUpMain.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <script type='text/javascript' src='js/signUp.js'></script>
         <script type='text/javascript' src='js/common.js'></script>
-        <link rel="stylesheet" type="text/css" href="css/main.css"><!--Includes CSS File-->
-        <link rel="shortcut icon" type="image/x-icon" href=""> <!--Set Favicon-->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Sign in</title>
+</head>
+
+<body onload = "signUpInit();">
+  <main id = "main">
+    <p id="signUp" align="center">Sign Up</p>
+    <form id="formSignUp">
         
+        <input id = "inputName" type="text" name="name" maxlength="128" class = "input" placeholder="Name" required><span class = "tc"  id = "inputNameTC"></span>
+        
+        <input id="inputEmail" type="text"  placeholder="Email"><span class = "tc"  id = "inputEmailTC"></span>
+        
+        <input id="inputConfirmEmail" type="text"  placeholder="Confirm Email" disabled><span class = "tc"  id = "inputConfirmEmailTC"></span>
+        
+        <input id="inputPass" type="password" placeholder="Password"><span  id = "inputPassTC" class = "tc"></span>
         
 
-        <title></title> <!--Page Title-->
-    
-    </head>
-    
-    <body onload="signUpInit();">
- 
-        <div id = "wrapper"><!--Body Wrapper-->
+        <div id = "passReqs">
+
+
+        <span class = "passReq" ><b>Must Include At Least;</b></span><br>
+        <span class = "passReq" >8 Charaters</span><span class="tc2" id = "lentik" > ✔</span><br>
+            <span class = "passReq">One Lower Case</span><span id = "Ltik" class="tc2"> ✔</span><br>
+            <span class = "passReq">One Upper Case</span><span id = "Utik" class="tc2"> ✔</span><br>
+            <span class = "passReq">One Number</span><span id = "Ntik" class="tc2"> ✔</span>
+
+        </div>
+
+
+        <input id="inputConfirmPass" type="password"  placeholder="Confirm Password" disabled><span class = "tc" id = "inputConfirmPassTC"></span>
         
-
-            <header><!--Header Page Top-->
-                
-                <h1 id = "title"></h1> <!--Website Title-->
-                
-            </header><!--Header Page Top--> 
-
+      <a id = "btnSignUp" >Sign Up</a>
         
-            <main> 
-                <div id = "SignUpForm">
-                    <form method="post" action="">
-                      
-                    <!--Choose Layout--> 
-                   <?php require 'layout/signUpV.html'; ?>
-                    
-                    </form>
-               </div> 
-            </main>  
-        </div><!--Body Wrapper-->
-    </body><!--body-->
-</html><!--Index Page-->
+        <p id = "alreadySignedUp" >Already Got An Account? <a href="#">Login</a></p>
+        
+      </form>
+    </main>
+     
+</body>
 
-<?php unset($_SESSION["error"]); ?>
+</html>

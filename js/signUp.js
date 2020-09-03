@@ -61,7 +61,7 @@ function checkNameInput()
     ///////////////////////////////////////////////////
     GEBID("inputName").addEventListener('keyup', (event) =>
     {
-        if (event.target.value.length > 0) //MINIMUM NAME LENGTH
+        if (event.target.value.trim().length > 0) //MINIMUM NAME LENGTH
         {
             FP(event.target, true) //CSS STYLE TO VALID 
         }
@@ -122,7 +122,7 @@ function checkEmailInputs()
             FP(input, true); //CSS STYLE TO VALID
            
             inputConfirmation.disabled = false; //ENABLE CONFIRMATION EMAIL INPUT
-
+            inputConfirmation.classList.remove("disabled");
             ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value.toLowerCase() == event.target.value.toLowerCase())
             {
@@ -136,7 +136,7 @@ function checkEmailInputs()
             GEBID(inputConfirmation.id + "TC").innerHTML = "";
             
             inputConfirmation.disabled = true; //DISABLE CONFIRMATION EMAIL INPUT
-
+            inputConfirmation.classList.add("disabled");
             //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (eLostFocus)
             {
@@ -228,12 +228,16 @@ function checkPassInputs()
             FP(input, true); //CSS STYLE TO VALID
 
             inputConfirmation.disabled = false; //ENABLE CONFIRMATION EMAIL INPUT
+            inputConfirmation.classList.remove("disabled");
 
+            GEBID("passReqs").style.display = "none";
+            GEBID("main").style.height = "500px";
             ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value == event.target.value)
             {
                 FP(inputConfirmation, true); //CSS STYLE TO VALID
             }
+
         }
         else
         {
@@ -242,15 +246,16 @@ function checkPassInputs()
             GEBID(inputConfirmation.id + "TC").innerHTML = "";
 
             inputConfirmation.disabled = true; //DISABLE CONFIRMATION EMAIL INPUT
+            inputConfirmation.classList.add("disabled");
 
+            GEBID("passReqs").style.display = "block";
+            GEBID("main").style.height = "575px";
             //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (pLostFocus)
             {
                 FP(input, false); //CSS STYLE TO INVALID
             }
         }
-
-        strengthTest(input);
     });
 
 
@@ -310,6 +315,65 @@ function checkPassInputs()
         }
 
     });
+
+
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
+    ///////////////////////////////////////////////////
+    input.addEventListener('click', (event) =>
+    {
+        GEBID("passReqs").style.display = "block";
+        GEBID("main").style.height = "575px";
+    });
+
+    ///////////////////////////////////////////////////
+    // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
+    ///////////////////////////////////////////////////
+    input.addEventListener('keyup', (event) =>
+    {
+      
+        //////////PASSWORD VALIDATION CONDITIONS//////////
+        if (input.value.length >= 8 && input.value.length <= 16)
+        {
+            GEBID("lentik").style.display = "inline"
+        }
+        else
+        {
+            GEBID("lentik").style.display = "none"
+        }
+
+        if (input.value.match(/[A-Z]/)) //CAPITAL LETTERS
+        {
+            GEBID("Utik").style.display = "inline"
+        }
+        else
+        {
+            GEBID("Utik").style.display = "none"
+        }
+
+        if (input.value.match(/[a-z]/)) //REGULAR LETTERS
+        {
+            GEBID("Ltik").style.display = "inline"
+        }
+        else
+        {
+            GEBID("Ltik").style.display = "none"
+        }
+
+        if (input.value.match(/[0-9]/)) //NUMBERS
+        {
+            GEBID("Ntik").style.display = "inline"
+        }
+        else
+        {
+            GEBID("Ntik").style.display = "none"
+        }
+        
+    });
+
+
+    
 
 }
 
