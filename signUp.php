@@ -13,8 +13,8 @@
 
 <body onload = "signUpInit();">
   <main id = "main">
-    <p id="signUp" align="center">Sign Up</p>
-    <form id="formSignUp">
+    <p id="formTitle">Sign Up</p>
+    <form id="form">
         
         <input id = "inputName" type="text" name="name" maxlength="128" class = "input" placeholder="Name" required><span class = "tc"  id = "inputNameTC"></span>
         
@@ -39,9 +39,9 @@
 
         <input id="inputConfirmPass" type="password"  placeholder="Confirm Password" disabled><span class = "tc" id = "inputConfirmPassTC"></span>
         
-      <a id = "btnSignUp" >Sign Up</a>
+      <a id = "btnSubmit" >Sign Up</a>
         
-        <p id = "alreadySignedUp" >Already Got An Account? <a href="#">Login</a></p>
+        <p id = "txtAlreadySignedUp" >Already Got An Account? <a id = "AAlreadySignedUp" href="#">Login</a></p>
         
       </form>
     </main>

@@ -7,42 +7,27 @@
         main {
             background-color: #FFFFFF;
             width: 400px;
-            height: 375px;
+            height: 300px;
             margin: 7em auto;
             border-radius: 1.5em;
             box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
         }
         
         #formTitle {
-            padding-top: 35px;
+            
+            padding-top: 50px;
             color: #8C55AA;
             font-family: 'Ubuntu', sans-serif;
             font-weight: bold;
             font-size: 23px;
             text-align : center;
         }
-    
-    
-    #inputName {
-        width: 76%;
-        color: rgb(38, 50, 56);
-        font-weight: 700;
-        font-size: 14px;
-        letter-spacing: 1px;
-        background: rgba(136, 126, 126, 0.04);
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
-        outline: none;
-        box-sizing: border-box;
-        border: 2px solid rgba(0, 0, 0, 0.02);
-        margin-bottom: 50px;
-        margin-left: 46px;
-        text-align: center;
-        margin-bottom: 27px;
-        font-family: 'Ubuntu', sans-serif;
+
+
+        #txtResponse{
+            text-align:center;
         }
-        
+    
         #inputEmail {
         width: 76%;
         color: rgb(38, 50, 56);
@@ -67,27 +52,6 @@
             padding-top: 20px;
         }
         
-        #inputPass {
-                width: 76%;
-        color: rgb(38, 50, 56);
-        font-weight: 700;
-        font-size: 14px;
-        letter-spacing: 1px;
-        background: rgba(136, 126, 126, 0.04);
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
-        outline: none;
-        box-sizing: border-box;
-        border: 2px solid rgba(0, 0, 0, 0.02);
-        margin-bottom: 50px;
-        margin-left: 46px;
-        text-align: center;
-        margin-bottom: 27px;
-        font-family: 'Ubuntu', sans-serif;
-        }
-        
-       
         input:focus {
             border: 2px solid rgba(0, 0, 0, 0.18) !important;
             
@@ -109,11 +73,16 @@
             box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
         }
         
-        #txtForgotPass {
+        #txtBack {
             text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
             color: #E1BEE7;
             padding-top: 15px;
             text-align: center
+        }
+
+        #txtResponse{
+            padding: 10px;
+            margin-top: 40px;
         }
         
         a {

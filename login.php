@@ -10,12 +10,12 @@
 
 <body>
   <main>
-    <p id="signIn">Sign in</p>
-    <form id="formSignIn">
+    <p id="formTitle">Sign in</p>
+    <form id="form">
       <input id="inputEmail" type="text"  placeholder="Username">
       <input id="inputPass" type="password" placeholder="Password">
-      <a id = "btnSignIn" >Sign in</a>
-        <p id = "forgotPass" ><a href="#">Forgot Password?</a></p>
+      <a id = "btnSubmit" >Sign in</a>
+      <p id = "txtForgotPass" ><a id = "aForgotPass" href="requestPassReset.php">Forgot Password?</a></p>
         
       </form>
     </main>
