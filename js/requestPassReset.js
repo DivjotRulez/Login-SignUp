@@ -35,6 +35,7 @@ function rprInit()
             /////////////////POST INPUTS//////////////////////
             postData(data, 'php/resetPass.php').then((p)=>
             {
+                
                if(p.status == 200)
                {
                    /////CONFIRM TO USER
@@ -43,7 +44,7 @@ function rprInit()
                     GEBID("main").innerHTML = `
 
                     <p id="formTitle"> Request Password Reset</p>
-                    <p id = "txtResponse">An Email Has Been Sent To Your Account 
+                    <p id = "txtConf">An Email Has Been Sent To Your Account 
                                         <br>
                                           Follow The Instructions To Reset Your Password 
                     </p>
@@ -51,10 +52,53 @@ function rprInit()
                     <form id="form">
                         <a href = "login.php" id = "btnSubmit" >Login</a>
                     </form>`;
-                
-
+                    
                }
+            //    else
+            //    {
+            //     alert("cx");
+            //         GEBID("inputEmail").style.marginBottom = "0px";
+               
+                   
+            //    }
             }).catch(errorHandler);
     });
+}
+
+
+//////////////////////////////////////////////////
+//                                              //
+//               XHR ERROR HANDLER              //
+//                                              //
+//////////////////////////////////////////////////
+function errorHandler(error)
+{    
+    var rTxt     = JSON.parse(error.responseText)[0];
+
+    var rMsg     = rTxt.msg;
+    var rCode    = rTxt.code;
+    var httpCode = error.status;
+
+    switch (httpCode) {
+        case 400:
+          alert("400");
+          break;
+
+        case 404:
+          alert("404");
+          break;
+
+          case 401:
+          alert("404");
+          break;
+      }
+      
+     
+      GEBID("formTitle").style.marginBottom = "10px";
+      GEBID("inputEmail").style.marginBottom = "0px";
+      GEBID("txtResponse").style.display = "block";
+      GEBID("txtResponse").style.marginBottom = "25px";
+      GEBID("txtResponse").innerHTML = rMsg;
+    
 }
 

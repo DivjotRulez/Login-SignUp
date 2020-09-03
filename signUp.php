@@ -41,7 +41,7 @@
         
       <a id = "btnSubmit" >Sign Up</a>
         
-        <p id = "txtAlreadySignedUp" >Already Got An Account? <a id = "AAlreadySignedUp" href="#">Login</a></p>
+        <p id = "txtAlreadySignedUp" >Already Got An Account? <a id = "AAlreadySignedUp" href="login.php">Login</a></p>
         
       </form>
     </main>

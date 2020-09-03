@@ -499,6 +499,40 @@ function FP(input, FP)
 
 //////////////////////////////////////////////////
 //                                              //
+//               XHR ERROR HANDLER              //
+//                                              //
+//////////////////////////////////////////////////
+function errorHandler(error)
+{    
+    var rTxt     = JSON.parse(error.responseText)[0];
+
+    var rMsg     = rTxt.msg;
+    var rCode    = rTxt.code;
+    var httpCode = error.status;
+
+    switch (httpCode) {
+        case 400:
+          alert("400");
+          break;
+
+        case 404:
+          alert("404");
+          break;
+
+          case 401:
+          alert("404");
+          break;
+      }
+
+      GEBID("txtResponse").style.display = "block";
+      GEBID("txtResponse").innerHTML =  "Error " + httpCode + " : " + rMsg;
+    
+}
+
+
+
+//////////////////////////////////////////////////
+//                                              //
 //                 STRENGTH TEST                //          NOT IN USE!
 //                                              //
 //////////////////////////////////////////////////

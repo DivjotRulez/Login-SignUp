@@ -12,11 +12,12 @@
   <main>
     <p id="formTitle">Sign in</p>
     <form id="form">
-      <input id="inputEmail" type="text"  placeholder="Username">
-      <input id="inputPass" type="password" placeholder="Password">
+      <input id="inputEmail" type="text"  placeholder="Username" class = "input">
+      <input id="inputPass" type="password" placeholder="Password" class = "input">
       <a id = "btnSubmit" >Sign in</a>
+      <p id = "txtNeedAnAccount" >Not Got An Account? <a id = "signUp.php" href="signUp.php">Sign Up</a></p>
       <p id = "txtForgotPass" ><a id = "aForgotPass" href="requestPassReset.php">Forgot Password?</a></p>
-        
+       
       </form>
     </main>
      

@@ -15,8 +15,8 @@
     <p id="formTitle"> Request Password Reset</p>
 
     <form id="form">
-      <input id="inputEmail" type="text"  placeholder="Email">
-    
+      <input id="inputEmail" type="text"  placeholder="Email" class = "input">
+      <p id = "txtResponse" style="display: none;"></p>
       <a id = "btnSubmit" >Submit</a>
 
       <p id = "txtBack" ><a id = "aBack" href="login.php">Back to Login</a></p>
