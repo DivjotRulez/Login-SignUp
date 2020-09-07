@@ -17,7 +17,8 @@
 //////////////////////////////////////////////////
 function loginInit()
 {
-    GEBID("btnLogin").addEventListener("click",() => 
+
+    GEBID("btnSubmit").addEventListener("click",() => 
     {
             var data = {}; //DATA TO POST
             

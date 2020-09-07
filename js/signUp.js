@@ -21,7 +21,7 @@ function signUpInit()
 
     checkNameInput();
 
-    GEBID("btnSignUp").addEventListener("click",() => 
+    GEBID("btnSubmit").addEventListener("click",() => 
     {
         // if(fullValidation())
         // {
@@ -45,6 +45,9 @@ function signUpInit()
        
     });
 }
+
+
+
 
 
 //////////////////////////////////////////////////
@@ -95,6 +98,11 @@ function checkNameInput()
 }
 
 
+
+
+
+
+
 //////////////////////////////////////////////////
 //                                              //
 //      EMAIL INPUT VALIDATION LISTENERS        //
@@ -122,7 +130,8 @@ function checkEmailInputs()
             FP(input, true); //CSS STYLE TO VALID
            
             inputConfirmation.disabled = false; //ENABLE CONFIRMATION EMAIL INPUT
-            inputConfirmation.classList.remove("disabled");
+            inputConfirmation.classList.remove("disabled");//Add disabled class to manip css
+
             ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value.toLowerCase() == event.target.value.toLowerCase())
             {
@@ -136,7 +145,8 @@ function checkEmailInputs()
             GEBID(inputConfirmation.id + "TC").innerHTML = "";
             
             inputConfirmation.disabled = true; //DISABLE CONFIRMATION EMAIL INPUT
-            inputConfirmation.classList.add("disabled");
+            inputConfirmation.classList.add("disabled");//Add disabled class to manip css
+
             //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (eLostFocus)
             {
@@ -202,6 +212,12 @@ function checkEmailInputs()
 }
 
 
+
+
+
+
+
+
 //////////////////////////////////////////////////
 //                                              //
 //     PASSWORD INPUT VALIDATION LISTENERS      //
@@ -228,10 +244,10 @@ function checkPassInputs()
             FP(input, true); //CSS STYLE TO VALID
 
             inputConfirmation.disabled = false; //ENABLE CONFIRMATION EMAIL INPUT
-            inputConfirmation.classList.remove("disabled");
+            inputConfirmation.classList.remove("disabled"); //Add disabled class to manip css
 
-            GEBID("passReqs").style.display = "none";
-            GEBID("main").style.height = "500px";
+            GEBID("passReqs").style.display = "none"; //hide password requierments
+            GEBID("main").style.height = "500px";//reset size of main
             ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value == event.target.value)
             {
@@ -248,8 +264,9 @@ function checkPassInputs()
             inputConfirmation.disabled = true; //DISABLE CONFIRMATION EMAIL INPUT
             inputConfirmation.classList.add("disabled");
 
-            GEBID("passReqs").style.display = "block";
-            GEBID("main").style.height = "575px";
+            GEBID("passReqs").style.display = "block";//show password requierments
+            GEBID("main").style.height = "575px";//increase size of main to fit pass reqs
+
             //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (pLostFocus)
             {
@@ -317,14 +334,16 @@ function checkPassInputs()
     });
 
 
-
     ///////////////////////////////////////////////////
-    // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
+    // ------- INPUT CLICK LISTENER INPUT 1 -------- //
     ///////////////////////////////////////////////////
-    input.addEventListener('click', (event) =>
+    input.addEventListener('click', () =>
     {
+        ///////////SHOW PASSWORD REQUIERMENTS/////////////
         GEBID("passReqs").style.display = "block";
-        GEBID("main").style.height = "575px";
+        GEBID("main").style.height = 75+ window.getComputedStyle(GEBID("main"), null).getPropertyValue("height").substring(0,3) + "px";
+
+
     });
 
     ///////////////////////////////////////////////////
@@ -334,6 +353,9 @@ function checkPassInputs()
     {
       
         //////////PASSWORD VALIDATION CONDITIONS//////////
+
+        ///////////TICK COMPLETED REQUIERMENTS////////////
+
         if (input.value.length >= 8 && input.value.length <= 16)
         {
             GEBID("lentik").style.display = "inline"
@@ -372,10 +394,13 @@ function checkPassInputs()
         
     });
 
-
-    
-
 }
+
+
+
+
+
+
 
 
 //////////////////////////////////////////////////
@@ -390,7 +415,6 @@ function fullValidation()
     //////////////////GET INPUTS///////////////////////
     inputs = document.getElementsByClassName("input");
 
-
     ///////////////////////////////////////////////////
     // ---------------- LOOP INPUTS ---------------- //
     ///////////////////////////////////////////////////
@@ -401,7 +425,7 @@ function fullValidation()
         {
             FP(inputs[i], false);
         }
-         /////////////VALIDATE EMAIL//////////////////
+        //////////////VALIDATE EMAIL//////////////////
         if (inputs[i].type == "email")
         {
             if (!emailIsValid(inputs[i].value))
@@ -429,6 +453,10 @@ function fullValidation()
     //////////////ALL IS VALID//////////////////
     if (isAllValid) { return true }
 }
+
+
+
+
 
 
 //////////////////////////////////////////////////
@@ -474,6 +502,12 @@ function passIsValid(password)
     }
 }
 
+
+
+
+
+
+
 //////////////////////////////////////////////////
 //                                              //
 //       CHANGE CSS BASED ON VALIDATION         //
@@ -496,6 +530,8 @@ function FP(input, FP)
         GEBID(input.id + "TC").style.color = "red";
     }
 }
+
+
 
 //////////////////////////////////////////////////
 //                                              //
