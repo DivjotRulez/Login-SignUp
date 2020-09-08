@@ -56,7 +56,10 @@ if(!$user)
     $errors = logError($errors, 400,"Email Is Not Registered", "2.3");
     relayError($errors);
 }
-
+if(user["isactive"] != 1)
+{
+    $errors = logError($errors, 401,"Please Activate Your Account First", "2"); relayError($errors);
+}
 /////////////////////////////////////////////////
 // --------- INSERT INTO USERS TABLE --------- //
 /////////////////////////////////////////////////

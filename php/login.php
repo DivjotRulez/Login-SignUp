@@ -53,16 +53,26 @@ $loginQ -> execute();
 
 $user = $loginQ -> fetch();
 
-if(!$user) //If no results Returned
+if($user) //If no results Returned
 {
-    $errors = logError($errors, 401,"Email / Password not reconised", "1");
-    relayError($errors);
+    if($user["isActive"] == 1)
+    {
+        $_SESSION["userID" ] = $user["userID"];
+        $_SESSION["username" ] = $user["email"];
+        //$_SESSION["isadmin"] = $user["Admin" ];
+    }
+    else
+    {
+        $errors = logError($errors, 401,"Please Activate Your Account", "2"); relayError($errors);
+    }
 }
 else //If match found
 {	
     $_SESSION["userID" ] = $user["userID"];
     $_SESSION["username" ] = $user["email"];
-	//$_SESSION["isadmin"] = $user["Admin" ];
+    //$_SESSION["isadmin"] = $user["Admin" ];
+    $errors = logError($errors, 401,"Email / Password not reconised", "1");
+    relayError($errors);
     
 }
 
