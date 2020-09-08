@@ -51,7 +51,9 @@ function passwordChangeInit()
                 
                     <form id="form">
                         <a href = "login.php" id = "btnSubmit" >Login</a>
-                    </form>`;
+                        <br>
+                    </form>
+                `;
 
                     GEBID("main").style.height = "250px";
                     

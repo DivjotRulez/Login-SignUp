@@ -21,7 +21,9 @@
       <input id="key"               type ="hidden"  class = "input"                value ="<?php echo $_GET["key"]; ?>">
       <p id = "txtResponse"></p>
 
-      <a id = "btnSubmit" >Change</a>
+      <p><a id = "btnSubmit" >Change</a></p>
+
+      <br>
              
     </form>
   </main>

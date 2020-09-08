@@ -50,7 +50,8 @@ function rprInit()
                     </p>
                 
                     <form id="form">
-                        <a href = "login.php" id = "btnSubmit" >Login</a>
+                        <p><a href = "login.php" id = "btnSubmit" >Login</a></p>
+                        <br>
                     </form>`;
                     
                }
