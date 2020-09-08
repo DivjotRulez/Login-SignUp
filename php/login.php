@@ -15,7 +15,7 @@ require 'common.php';
 /////////////////////////////////////////////////
 // --------------- GET INPUTS ---------------- //
 /////////////////////////////////////////////////
-$email    = htmlentities($_POST["inputEmail"]);
+$email    = trim(htmlentities($_POST["inputEmail"]));
 $password = htmlentities($_POST["inputPass" ]);
 
 /////////////////////////////////////////////////
