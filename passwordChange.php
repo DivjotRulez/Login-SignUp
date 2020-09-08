@@ -19,7 +19,7 @@
       <input id="inputPass"         type="password" placeholder="Password"         class = "input">
       <input id="inputConfirmPass"  type="password" placeholder="Confirm Password" class = "input">
       <input id="key"               type ="hidden"  class = "input"                value ="<?php echo $_GET["key"]; ?>">
-      <p id = "txtResponse" style="display: none;"></p>
+      <p id = "txtResponse"></p>
 
       <a id = "btnSubmit" >Change</a>
              

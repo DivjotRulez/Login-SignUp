@@ -31,12 +31,12 @@
         <input id="inputEmail" type="text"  placeholder="Username" class = "input">
         <input id="inputPass" type="password" placeholder="Password" class = "input">
 
-        <p id = "txtResponse" style="display: none;"></p>
+        <p id = "txtResponse"></p>
 
         <a id = "btnSubmit" >Sign in</a>
         <p id = "txtNeedAnAccount" >Not Got An Account? <a href="signUp.php">Sign Up</a></p>
         <p id = "txtForgotPass" ><a id = "aForgotPass" href="requestPassReset.php">Forgot Password?</a></p>
-       
+       <br>
       </form>
     </main>
   </body>

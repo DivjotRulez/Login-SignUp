@@ -247,7 +247,7 @@ function checkPassInputs()
             inputConfirmation.classList.remove("disabled"); //Add disabled class to manip css
 
             GEBID("passReqs").style.display = "none"; //hide password requierments
-            resizeForm();
+            
             ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value == event.target.value)
             {
@@ -265,7 +265,7 @@ function checkPassInputs()
             inputConfirmation.classList.add("disabled");
 
             GEBID("passReqs").style.display = "block";//show password requierments
-            resizeForm();
+            
 
             //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (pLostFocus)
@@ -341,7 +341,7 @@ function checkPassInputs()
     {
         ///////////SHOW PASSWORD REQUIERMENTS/////////////
         GEBID("passReqs").style.display = "block";
-        resizeForm();
+     
 
 
     });
@@ -457,13 +457,13 @@ function fullValidation()
     {
         GEBID("txtResponse").style.display = "block";
         GEBID("txtResponse").innerHTML = "Fill all fields correctly";
-        resizeForm();
+       
         
     }
 }
 
 
-
+ 
 
 
 
@@ -570,7 +570,7 @@ function errorHandler(error)
 
       GEBID("txtResponse")     .style.display      = "block";
       GEBID("txtResponse")     .innerHTML          = rMsg;
-      resizeForm();
+      
       
     
 }
@@ -659,38 +659,4 @@ function strengthTest(pass)
 
 return score;
 
-}
-
-
-
-
-function resizeForm()
-{
-
-    if (
-        window.getComputedStyle(GEBID("passReqs")).display !== "none" &&
-        window.getComputedStyle(GEBID("txtResponse")).display !== "none"
-    )
-    {
-        ///BOTH DISP
-        GEBID("formTitle")       .style.marginBottom = "10px";
-        GEBID("inputConfirmPass").style.marginBottom = "0px";
-        GEBID("txtResponse")     .style.marginBottom = "25px";
-        GEBID("main")            .style.height       = "580px";
-    }
-    else
-    {
-        if (window.getComputedStyle(GEBID("passReqs")).display !== "none")
-        {
-            GEBID("formTitle")       .style.marginBottom = "10px";
-            GEBID("main")            .style.height       = "580px";
-        }
-        else if (window.getComputedStyle(GEBID("txtResponse")).display !== "none")
-        {
-            GEBID("formTitle")       .style.marginBottom = "10px";
-            GEBID("inputConfirmPass").style.marginBottom = "0px";
-            GEBID("txtResponse")     .style.marginBottom = "25px";
-            GEBID("main")            .style.height       = "520px";
-        }
-    }
 }

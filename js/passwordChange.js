@@ -88,12 +88,9 @@ function errorHandler(error)
           alert("404");
           break;
       }
-      
-      GEBID("txtResponse")     .style.display      = "block";
+
       GEBID("txtResponse")     .innerHTML          = rMsg;
-      GEBID("inputConfirmPass").style.marginBottom = "0px";
-      GEBID("txtResponse")     .style.marginBottom = "25px";
-      GEBID("main")            .style.height       = "340px";
+  
       
     
 }

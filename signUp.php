@@ -39,11 +39,13 @@
 
         <input id="inputConfirmPass" type="password"  placeholder="Confirm Password" class = "input"  disabled><span class = "tc" id = "inputConfirmPassTC"></span>
         
-        <p id = "txtResponse" style="display: none;"></p>
-
+        <p id = "txtResponse"></p>
+ 
       <a id = "btnSubmit" >Sign Up</a>
         
         <p id = "txtAlreadySignedUp" >Already Got An Account? <a id = "AAlreadySignedUp" href="login.php">Login</a></p>
+
+        <br>
         
       </form>
     </main>

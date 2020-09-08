@@ -73,10 +73,10 @@ function errorHandler(error)
 
       GEBID("txtResponse")     .style.display      = "block";
       GEBID("txtResponse")     .innerHTML          = rMsg;
-      GEBID("formTitle")       .style.marginBottom = "10px";
-      GEBID("inputPass").style.marginBottom = "0px";
-      GEBID("txtResponse")     .style.marginBottom = "25px";
-      GEBID("main")            .style.height       = "580px";
+      // GEBID("formTitle")       .style.marginBottom = "10px";
+      // GEBID("inputPass").style.marginBottom = "0px";
+      // GEBID("txtResponse")     .style.marginBottom = "25px";
+      // GEBID("main")            .style.height       = "580px";
     
 }
 

@@ -93,11 +93,6 @@ function errorHandler(error)
           break;
       }
       
-     
-      GEBID("formTitle").style.marginBottom = "10px";
-      GEBID("inputEmail").style.marginBottom = "0px";
-      GEBID("txtResponse").style.display = "block";
-      GEBID("txtResponse").style.marginBottom = "25px";
       GEBID("txtResponse").innerHTML = rMsg;
     
 }
