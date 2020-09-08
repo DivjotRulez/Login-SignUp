@@ -35,24 +35,24 @@ function passwordChangeInit()
             postData(data, 'php/passwordChange.php').then((p)=>
             {
                 
-               if(p.status == 200)
-               {
-                   /////CONFIRM TO USER
-                //    GEBID("inputEmail").style.display = "none";
-                //    GEBID("txtBack").style.display = "none";
-                    GEBID("main").innerHTML = `
+            //    if(p.status == 200)
+            //    {
+            //        /////CONFIRM TO USER
+            //     //    GEBID("inputEmail").style.display = "none";
+            //     //    GEBID("txtBack").style.display = "none";
+            //         GEBID("main").innerHTML = `
 
-                    <p id="formTitle"> Password Changed</p>
-                    <p id = "txtConf">Your Password Has Been Updated 
-                                        <br>
-                                          Please Now Login Using Your New Details 
-                    </p>
+            //         <p id="formTitle"> Password Changed</p>
+            //         <p id = "txtConf">Your Password Has Been Updated 
+            //                             <br>
+            //                               Please Now Login Using Your New Details 
+            //         </p>
                 
-                    <form id="form">
-                        <a href = "login.php" id = "btnSubmit" >Login</a>
-                    </form>`;
+            //         <form id="form">
+            //             <a href = "login.php" id = "btnSubmit" >Login</a>
+            //         </form>`;
                     
-               }
+            //    }
            
             }).catch(errorHandler);
     });

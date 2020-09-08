@@ -12,7 +12,7 @@
 </head>
 
 <body onload = "passwordChangeInit();">
-  <main>
+  <main id = "main">
     <p id="formTitle">New Password</p>
     <form id="form">
       <input id="inputConfirmEmail" type="Email"    placeholder="Confirm Email"    class = "input">
