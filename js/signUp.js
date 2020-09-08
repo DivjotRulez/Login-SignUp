@@ -364,9 +364,7 @@ function checkPassInputs()
         ///////////SHOW PASSWORD REQUIERMENTS/////////////
         GEBID("passReqs").style.display = "block";
      
-
-
-    });
+    }); 
 
     ///////////////////////////////////////////////////
     // ------- INPUT KEYUP LISTENER INPUT 1 -------- //
@@ -563,6 +561,8 @@ function FP(input, FP)
 
 
 
+
+
 //////////////////////////////////////////////////
 //                                              //
 //               XHR ERROR HANDLER              //
@@ -596,18 +596,6 @@ function errorHandler(error)
       
     
 }
-
-
-
-
-function manipCSS(ID, N, P)
-{   
-    GEBID(ID).style.height = N + parseInt(window.getComputedStyle(GEBID(ID), null).getPropertyValue(P).substring(0,3)) + "px";
-}
-
-
-
-
 
 
 //////////////////////////////////////////////////

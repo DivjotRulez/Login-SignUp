@@ -15,9 +15,21 @@
   <main id = "main">
     <p id="formTitle">New Password</p>
     <form id="form">
-      <input id="inputConfirmEmail" type="Email"    placeholder="Confirm Email"    class = "input">
-      <input id="inputPass"         type="password" placeholder="Password"         class = "input">
-      <input id="inputConfirmPass"  type="password" placeholder="Confirm Password" class = "input">
+      <input id="inputConfirmEmail" type="Email"    placeholder="Confirm Email"    class = "input"><span class = "tc"  id = "inputConfirmEmailTC"></span>
+      <input id="inputPass"         type="password" placeholder="Password"         class = "input"><span  id = "inputPassTC" class = "tc"></span>
+
+      <div id = "passReqs">
+
+
+<span class = "passReq" ><b>Must Include At Least;</b></span><br>
+<span class = "passReq" >8 Charaters</span><span class="tc2" id = "lentik" > ✔</span><br>
+    <span class = "passReq">One Lower Case</span><span id = "Ltik" class="tc2"> ✔</span><br>
+    <span class = "passReq">One Upper Case</span><span id = "Utik" class="tc2"> ✔</span><br>
+    <span class = "passReq">One Number</span><span id = "Ntik" class="tc2"> ✔</span>
+
+</div>
+
+      <input id="inputConfirmPass"  type="password" placeholder="Confirm Password" class = "input"><span class = "tc" id = "inputConfirmPassTC"></span>
       <input id="key"               type ="hidden"  class = "input"                value ="<?php echo $_GET["key"]; ?>">
       <p id = "txtResponse"></p>
 

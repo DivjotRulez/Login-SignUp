@@ -36,7 +36,6 @@
 
         </div>
 
-
         <input id="inputConfirmPass" type="password"  placeholder="Confirm Password" class = "input"  disabled><span class = "tc" id = "inputConfirmPassTC"></span>
         
         <p id = "txtResponse"></p>

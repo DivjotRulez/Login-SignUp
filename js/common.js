@@ -74,3 +74,76 @@ function emailIsValid(email)
     console.log(email)
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
+
+
+//////////////////////////////////////////////////
+//                                              //
+//        PASSWORD VALIDATION CONDITIONS        //
+//                                              //
+//////////////////////////////////////////////////
+function passIsValid(password)
+{
+    var pass = password.split(""); //PASSWORD CHARS TO ARRAY
+
+    var hasLetters = false;
+    var hasCapLetters = false;
+    var hasNumbers = false;
+
+    //////////PASSWORD VALIDATION CONDITIONS//////////
+    if (pass.length >= 8)
+    {
+        
+        ////////////LOOP CHARS AND LOOK FOR...////////////
+        for (i = 0; i < pass.length; i++)
+        {
+            if (pass[i].match(/[A-Z]/g)) //CAPITAL LETTERS
+            {
+                hasCapLetters = true;
+            }
+            if (pass[i].match(/[a-z]/g)) //REGULAR LETTERS
+            {
+                hasLetters = true
+            }
+            if (pass[i].match(/[0-9]/g)) //NUMBERS
+            {
+                hasNumbers = true;
+            }
+        }
+        
+        ///////////MUST INCLUDE THESE TYPES//////////////
+        if (hasLetters && hasCapLetters && hasNumbers) { return true }
+    }
+    else
+    {
+        //TOO SHORT
+    }
+}
+
+
+
+
+
+
+
+//////////////////////////////////////////////////
+//                                              //
+//       CHANGE CSS BASED ON VALIDATION         //
+//                                              //
+//////////////////////////////////////////////////
+function FP(input, FP)
+{
+
+    ///////////////////////////////////////////////////
+    // ----- EDIT CSS DEPENDANT ON VALIDATION ------ //
+    ///////////////////////////////////////////////////
+    if (FP)
+    {
+        GEBID(input.id + "TC").innerHTML = "✔";
+        GEBID(input.id + "TC").style.color = "Green";
+    }
+    else
+    {
+        GEBID(input.id + "TC").innerHTML = "✖";
+        GEBID(input.id + "TC").style.color = "red";
+    }
+}
