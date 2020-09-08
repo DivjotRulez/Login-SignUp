@@ -15,10 +15,10 @@
   <main>
     <p id="formTitle">New Password</p>
     <form id="form">
-      
-      <input id="inputPass"        type="password" placeholder="Password"         class = "input">
-      <input id="inputConfirmPass" type="password" placeholder="Confirm Password" class = "input">
-      <input id="key"              type ="hidden"  class = "input"                value ="<?php echo $_GET["key"]; ?>">
+      <input id="inputConfirmEmail" type="Email"    placeholder="Confirm Email"    class = "input">
+      <input id="inputPass"         type="password" placeholder="Password"         class = "input">
+      <input id="inputConfirmPass"  type="password" placeholder="Confirm Password" class = "input">
+      <input id="key"               type ="hidden"  class = "input"                value ="<?php echo $_GET["key"]; ?>">
       <p id = "txtResponse" style="display: none;"></p>
 
       <a id = "btnSubmit" >Change</a>
