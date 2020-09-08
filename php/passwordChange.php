@@ -78,10 +78,10 @@ $conn = conn("localhost","a1","alex","alex");
 
 $userTable = "users";
 $emailCol  = "email";
-$keyCol   = "password";
+$keyCol   = "activationKey";
 
 $userQ = $conn -> prepare("SELECT * FROM $userTable WHERE $emailCol=:email AND $keyCol=:key");
-$userQ -> bindParam(":email", $email);
+$userQ -> bindParam(":email", $emailC);
 $userQ -> bindParam(":key", $key);
 $userQ -> execute();
 
@@ -98,22 +98,21 @@ if(!$user) //If no results Returned
 // -------- UPDATE USER PASSWORD TABLE ------- //
 /////////////////////////////////////////////////
 
-$email = $user["email"];
+$emailC = $user["email"];
 $update = $conn->prepare
 (
     "UPDATE users
-    SET activationKey = :key,
-        password = :password
+    SET password = :password
     WHERE email = :email;"
 );
 
 $update->bindParam(":password", $pass   );
-$update->bindParam(":email"   , $email );
-$update->bindParam(":key"     , NULL   );
+$update->bindParam(":email"   , $emailC );
+
 
 $update -> execute();
 
-if($update->rowCount() < 1)
+if($update->rowCount() < 1 && $pass != $user["password"] )
 {
     $errors = logError($errors, 500 ,"Database update Failed", "3.1");
     relayError($errors);
@@ -122,11 +121,11 @@ if($update->rowCount() < 1)
 
 
 
-/////IF UPDATE WAS SUCCESSFUL/////////
-if($insert->rowCount() > 0)
-{
+// /////IF UPDATE WAS SUCCESSFUL/////////
+// if($insert->rowCount() > 0)
+// {
     
-}
+// }
 
 
 ?>
