@@ -40,7 +40,29 @@ function signUpInit()
             }
            
             /////////////////POST INPUTS//////////////////////
-            postData(data, 'php/addNewUser.php').catch(errorHandler);
+            postData(data, 'php/addNewUser.php').then((p)=>
+            {
+               if(p.status == 200)
+               {
+                    GEBID("main").innerHTML = `
+
+
+                    <p id="formTitle">Sign Up</p>
+                    <p id="txtConf">You Have Been Sent An Email
+                                        <br>
+                                          Follow The Instructions To Activate Your Account
+                    </p>
+                
+                    <form id="form">
+                        <p><a href="login.php" id="btnSubmit">Login</a></p>
+                        <br>
+                    </form>
+
+
+                   `;
+                    
+               }
+            }).catch(errorHandler);
         }
        
     });
