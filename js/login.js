@@ -67,12 +67,16 @@ function errorHandler(error)
           break;
 
           case 401:
-          alert("404");
+          alert("401");
           break;
       }
 
-      GEBID("txtResponse").style.display = "block";
-      GEBID("txtResponse").innerHTML =  "Error " + httpCode + " : " + rMsg;
+      GEBID("txtResponse")     .style.display      = "block";
+      GEBID("txtResponse")     .innerHTML          = rMsg;
+      GEBID("formTitle")       .style.marginBottom = "10px";
+      GEBID("inputPass").style.marginBottom = "0px";
+      GEBID("txtResponse")     .style.marginBottom = "25px";
+      GEBID("main")            .style.height       = "580px";
     
 }
 

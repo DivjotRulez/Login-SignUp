@@ -18,11 +18,11 @@
         
         <input id = "inputName" type="text" name="name" maxlength="128" class = "input" placeholder="Name" required><span class = "tc"  id = "inputNameTC"></span>
         
-        <input id="inputEmail" type="text"  placeholder="Email"><span class = "tc"  id = "inputEmailTC"></span>
+        <input id="inputEmail" type="text"  placeholder="Email" class = "input"><span class = "tc"  id = "inputEmailTC"></span>
         
-        <input id="inputConfirmEmail" type="text"  placeholder="Confirm Email" disabled><span class = "tc"  id = "inputConfirmEmailTC"></span>
+        <input id="inputConfirmEmail" type="text"  placeholder="Confirm Email" class = "input" disabled><span class = "tc"  id = "inputConfirmEmailTC"></span>
         
-        <input id="inputPass" type="password" placeholder="Password"><span  id = "inputPassTC" class = "tc"></span>
+        <input id="inputPass" type="password" placeholder="Password" class = "input"><span  id = "inputPassTC" class = "tc"></span>
         
 
         <div id = "passReqs">
@@ -37,8 +37,10 @@
         </div>
 
 
-        <input id="inputConfirmPass" type="password"  placeholder="Confirm Password" disabled><span class = "tc" id = "inputConfirmPassTC"></span>
+        <input id="inputConfirmPass" type="password"  placeholder="Confirm Password" class = "input"  disabled><span class = "tc" id = "inputConfirmPassTC"></span>
         
+        <p id = "txtResponse" style="display: none;"></p>
+
       <a id = "btnSubmit" >Sign Up</a>
         
         <p id = "txtAlreadySignedUp" >Already Got An Account? <a id = "AAlreadySignedUp" href="login.php">Login</a></p>

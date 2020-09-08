@@ -51,53 +51,54 @@ $conn = conn("localhost","a1","alex","alex");
 $findByEmail = $conn->query("SELECT * FROM users where email = '$email'");
 $user = $findByEmail->fetch();
 
-if($user)
+if(!$user)
 {
     $errors = logError($errors, 400,"Email Is Not Registered", "2.3");
     relayError($errors);
 }
-echo $user["userID"];
 
 /////////////////////////////////////////////////
 // --------- INSERT INTO USERS TABLE --------- //
 /////////////////////////////////////////////////
  
-$key = rand();
-$active = 0;
+if($user)
+{
 
-$insert = $conn->prepare
+
+
+$key = rand();
+$email = $user["email"];
+
+$update = $conn->prepare
 (
-    "INSERT INTO users 
-    (name,  email,  password, activationKey, isActive) VALUES 
-   (:name, :email, :password, :key,         :active)"
+    "UPDATE users
+    SET activationKey = :key
+    WHERE email = :email;"
 );
 
-$insert->bindParam(":name"    , $name  );
-$insert->bindParam(":email"   , $email );
-$insert->bindParam(":password", $pass  );
-$insert->bindParam(":key"     , $key   );
-$insert->bindParam(":active"  , $active);
+$update->bindParam(":email"   , $email );
+$update->bindParam(":key"     , $key   );
 
-$insert -> execute();
+$update -> execute();
 
-if($insert->rowCount() < 1)
+if($update->rowCount() < 1)
 {
-    //$errors = logError($errors, 500 ,"Database Insert Failed", "3.1");
-    //relayError($errors);
+    $errors = logError($errors, 500 ,"Database update Failed", "3.1");
+    relayError($errors);
 }
 
-
+}
 
 /////////////////////////////////////////////////
 // --------------- SEND EMAIL ---------------- //
 /////////////////////////////////////////////////
 
 /////SEND EMAIL IF INSERT WAS SUCCESSFUL/////////
-if($insert->rowCount() > 0)
+if($update->rowCount() > 0)
 {
-    $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/php/activateAccount.php';
+    $URL  = 'http://81.100.243.37:1991/SignUp_EmailConf/passwordChange.php';
     $URL .= '?key='.$key;
-    //sendEmailActivation($name, $email, $URL);
+    //sendRecoveryEmail($user["name"], $email, $URL);
     
 
 

@@ -15,7 +15,7 @@ require 'common.php';
 /////////////////////////////////////////////////
 // --------------- GET INPUTS ---------------- //
 /////////////////////////////////////////////////
-$email = htmlentities($_POST["inputEmail"]);
+$email    = htmlentities($_POST["inputEmail"]);
 $password = htmlentities($_POST["inputPass" ]);
 
 /////////////////////////////////////////////////
@@ -23,10 +23,18 @@ $password = htmlentities($_POST["inputPass" ]);
 /////////////////////////////////////////////////
 if(strlen($email) == 0 || strlen($password) == 0)
 {
-    if (strlen($email) == 0){$errors = logError($errors, 404, "Email Field Not Recieved"   , "0"  );}
+    if (strlen($email) == 0)   {$errors = logError($errors, 404, "Email Field Not Recieved"   , "0"  );}
     if (strlen($password) == 0){$errors = logError($errors, 404, "Password Field Not Recieved", "0.1");}
 
     relayError($errors); 
+}
+
+/////////////////////////////////////////////////
+// ----------- EMAIL CORRECT FORMAT ---------- //
+/////////////////////////////////////////////////
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+{
+    $errors = logError($errors, 400,"Email Is An Incorrect Format", "0.2"); relayError($errors); 
 }
 
 /////////////////////////////////////////////////

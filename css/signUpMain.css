@@ -108,8 +108,8 @@
         }
     
     #inputConfirmPass {
-                width: 76%;
-        color: rgb(0, 170, 255);
+        
+        width: 76%;
         font-weight: 700;
         font-size: 14px;
         letter-spacing: 1px;
@@ -183,4 +183,9 @@
 .passreq{padding: 0px; margin: auto ;}
 .tc2{display: none;}
 
+#txtResponse
+        {
+            text-align:center;
+            color: crimson;
+        }
 

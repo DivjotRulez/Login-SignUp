@@ -1,3 +1,13 @@
+<?php
+  session_start(); 
+  
+  if(isset($_SESSION["email"]))
+  {
+    ///GO TO INDEX
+  }
+  else
+  {
+?>
 <html>
 
 <head>
@@ -27,3 +37,5 @@
 </body>
 
 </html>
+
+<?php } ?>

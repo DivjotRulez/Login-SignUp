@@ -23,8 +23,8 @@ function signUpInit()
 
     GEBID("btnSubmit").addEventListener("click",() => 
     {
-        // if(fullValidation())
-        // {
+         if(fullValidation())
+         {
             var data = {}; //DATA TO POST
             
             //////////////////GET INPUTS///////////////////////
@@ -41,7 +41,7 @@ function signUpInit()
            
             /////////////////POST INPUTS//////////////////////
             postData(data, 'php/addNewUser.php').catch(errorHandler);
-       // }
+        }
        
     });
 }
@@ -247,7 +247,7 @@ function checkPassInputs()
             inputConfirmation.classList.remove("disabled"); //Add disabled class to manip css
 
             GEBID("passReqs").style.display = "none"; //hide password requierments
-            GEBID("main").style.height = "500px";//reset size of main
+            resizeForm();
             ///////////////ARE INPUTS IDENTICAL///////////////
             if (inputConfirmation.value == event.target.value)
             {
@@ -265,7 +265,7 @@ function checkPassInputs()
             inputConfirmation.classList.add("disabled");
 
             GEBID("passReqs").style.display = "block";//show password requierments
-            GEBID("main").style.height = "575px";//increase size of main to fit pass reqs
+            resizeForm();
 
             //FOCUS LOST. CHECK ON KEYUP (DECREASE CHECK TOLERANCE)//
             if (pLostFocus)
@@ -341,7 +341,7 @@ function checkPassInputs()
     {
         ///////////SHOW PASSWORD REQUIERMENTS/////////////
         GEBID("passReqs").style.display = "block";
-        GEBID("main").style.height = 75+ window.getComputedStyle(GEBID("main"), null).getPropertyValue("height").substring(0,3) + "px";
+        resizeForm();
 
 
     });
@@ -452,6 +452,14 @@ function fullValidation()
 
     //////////////ALL IS VALID//////////////////
     if (isAllValid) { return true }
+    else
+    //////INVALID INPUT///////////////////
+    {
+        GEBID("txtResponse").style.display = "block";
+        GEBID("txtResponse").innerHTML = "Fill all fields correctly";
+        resizeForm();
+        
+    }
 }
 
 
@@ -560,10 +568,23 @@ function errorHandler(error)
           break;
       }
 
-      GEBID("txtResponse").style.display = "block";
-      GEBID("txtResponse").innerHTML =  "Error " + httpCode + " : " + rMsg;
+      GEBID("txtResponse")     .style.display      = "block";
+      GEBID("txtResponse")     .innerHTML          = rMsg;
+      resizeForm();
+      
     
 }
+
+
+
+
+function manipCSS(ID, N, P)
+{   
+    GEBID(ID).style.height = N + parseInt(window.getComputedStyle(GEBID(ID), null).getPropertyValue(P).substring(0,3)) + "px";
+}
+
+
+
 
 
 
@@ -638,4 +659,38 @@ function strengthTest(pass)
 
 return score;
 
+}
+
+
+
+
+function resizeForm()
+{
+
+    if (
+        window.getComputedStyle(GEBID("passReqs")).display !== "none" &&
+        window.getComputedStyle(GEBID("txtResponse")).display !== "none"
+    )
+    {
+        ///BOTH DISP
+        GEBID("formTitle")       .style.marginBottom = "10px";
+        GEBID("inputConfirmPass").style.marginBottom = "0px";
+        GEBID("txtResponse")     .style.marginBottom = "25px";
+        GEBID("main")            .style.height       = "580px";
+    }
+    else
+    {
+        if (window.getComputedStyle(GEBID("passReqs")).display !== "none")
+        {
+            GEBID("formTitle")       .style.marginBottom = "10px";
+            GEBID("main")            .style.height       = "580px";
+        }
+        else if (window.getComputedStyle(GEBID("txtResponse")).display !== "none")
+        {
+            GEBID("formTitle")       .style.marginBottom = "10px";
+            GEBID("inputConfirmPass").style.marginBottom = "0px";
+            GEBID("txtResponse")     .style.marginBottom = "25px";
+            GEBID("main")            .style.height       = "520px";
+        }
+    }
 }

@@ -85,7 +85,7 @@ if($pass == $passC)
 /////////////PASSWORDS DO NOT MATCH//////////////
 else
 {
-    $errors = logError($errors, 400,"Passwords Don't Match", "2.2");
+    $errors = logError($errors, 400,"Passwords Don't Match", "2.2"); relayError($errors);
 }
 
 ///////////IS EMAIL ALREADY REGISTERED///////////
@@ -97,15 +97,9 @@ $emailExists = $conn->query("SELECT count(1) FROM users where email = '$email'")
 
 if($emailExists > 0)
 {
-    $errors = logError($errors, 400,"Email already exists", "2.3");
+    $errors = logError($errors, 400,"Email already exists", "2.3"); relayError($errors);
 }
 
-
-///////////RETURN LEVEL 2 ERROR CODES////////////
-if(count($errors) > 0)
-{
-   relayError($errors);
-}
 
 
 /////////////////////////////////////////////////

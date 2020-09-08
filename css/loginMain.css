@@ -136,3 +136,10 @@
                 border-radius: 0px;
             }
         }    
+
+
+        #txtResponse
+        {
+            text-align:center;
+            color: crimson;
+        }
